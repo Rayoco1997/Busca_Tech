@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Busca_Tech</string>
+    <string name="strBusca">BUSCA</string>
+    <string name="strIngresaInvitado">Ingresa como invitado</string>
+    <string name="strO">------O------</string>
+    <string name="strNoTienesCuenta">¿No tienes una cuenta? Registrate</string>
+    <string name="strIniciaSesion">Iniciar sesión</string>
+    <string name="strCreaUnaCuenta">Crear una cuenta</string>
+    <string name="strRegistrar">Registrar</string>
+    <string name="title_activity_pantalla_principal">PantallaPrincipalActiv</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="strBuscarProducto">Buscar producto</string>
+</resources>
