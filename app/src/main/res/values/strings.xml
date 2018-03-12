@@ -14,4 +14,17 @@
 
     <string name="action_settings">Settings</string>
     <string name="strBuscarProducto">Buscar producto</string>
+
+    <!--TEXTOS PARA LOS TITULOS DE LAS ACTIVIDADES-->
+    <string name="strBienvenido">¡BIENVENIDO!</string>
+    <string name="strNovedades">NOVEDADES</string>
+    <string name="strSugerencias">SUGERENCIAS</string>
+    <string name="strBuscaTuProducto">BUSCA TU PRODUCTO</string>
+    <string name="strMisPreferencias">MIS PREFERENCIAS</string>
+    <string name="strConfiguracion">CONFIGURACION DE CUENTA</string>
+    <string name="strCreaTuCuenta">CREA TU CUENTA</string>
+    <string name="strBuscaTech">BUSCA TECH</string>
+    <string name="strSugiereTienda">Sugerir una tienda</string>
+
+
 </resources>

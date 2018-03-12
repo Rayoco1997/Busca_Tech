@@ -9,13 +9,13 @@
             android:icon="@android:drawable/ic_search_category_default"
             android:title="Buscar producto" />
         <item
-            android:id="@+id/nav_Novedades"
-            android:icon="@android:drawable/btn_star_big_on"
-            android:title="Novedades" />
-        <item
             android:id="@+id/nav_Preferencias"
             android:icon="@android:drawable/ic_input_get"
             android:title="Mis preferencias" />
+        <item
+            android:id="@+id/nav_SugerirTienda"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="@string/strSugiereTienda" />
     </group>
 
     <item android:title="Configuración">

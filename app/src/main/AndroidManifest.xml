@@ -9,19 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="mx.itesm.buscaTech.busca_tech.LoginActiv">
+        <activity android:name=".LoginActiv">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="mx.itesm.buscaTech.busca_tech.RegistraCuentaActiv" />
+        <activity android:name=".RegistraCuentaActiv" />
         <activity
-            android:name="mx.itesm.buscaTech.busca_tech.PantallaPrincipalActiv"
+            android:name=".PantallaPrincipalActiv"
             android:label="@string/title_activity_pantalla_principal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="mx.itesm.buscaTech.busca_tech.BuscarProductoActiv"></activity>
+        <activity android:name=".BuscarProductoActiv" />
+        <activity android:name=".SugerirTiendaActiv"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.strBuscaTech);
         setContentView(R.layout.activity_pantalla_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,8 +91,9 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             startActivity(intBuscarProducto);
         } else if (id == R.id.nav_CambiarUsuContra) {
 
-        } else if (id == R.id.nav_Novedades) {
-
+        } else if (id == R.id.nav_SugerirTienda) {
+            Intent intSugerirTienda= new Intent(this,SugerirTiendaActiv.class);
+            startActivity(intSugerirTienda);
         } else if (id == R.id.nav_Preferencias) {
 
         }

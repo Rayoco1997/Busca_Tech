@@ -10,6 +10,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.strCreaTuCuenta);
         setContentView(R.layout.activity_registra_cuenta);
     }
 

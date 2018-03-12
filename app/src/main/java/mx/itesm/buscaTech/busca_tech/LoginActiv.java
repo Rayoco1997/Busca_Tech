@@ -10,6 +10,7 @@ public class LoginActiv extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.strBienvenido);
         setContentView(R.layout.activity_login);
     }
 
