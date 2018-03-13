@@ -27,6 +27,7 @@
         <activity android:name=".MiPerfilActiv" />
         <activity android:name=".CambiarUsuarioActiv" />
         <activity android:name=".CambiarContrasenaActiv"></activity>
+        <activity android:name=".BusquedaAvanzadaActiv" />
     </application>
 
 </manifest>

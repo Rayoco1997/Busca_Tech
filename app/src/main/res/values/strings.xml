@@ -45,6 +45,15 @@
     <string name="strVeriContrasenaNueva">Verifica contraseña nueva</string>
     <string name="strMiPerfil">Mi perfil</string>
     <string name="strConfiguración">CONFIGURACION</string>
+    <string name="strTituloBusquedaAv">Buscar producto</string>
+    <string name="strTvDispositivo">Dispositivo:</string>
+    <string name="strTvPantalla">Pantalla:</string>
+    <string name="strTvMemoriaRam">Memoria RAM:</string>
+    <string name="strTvMemoriaSecundaria">Memoria S:</string>
+    <string name="strTvProcesador">Procesador:</string>
+    <string name="strTvPrecio">Precio:</string>
+    <string name="strBtnBuscarAv">Buscar</string>
+    <string name="strBusquedaAv">Busqueda Avanzada</string>
 
 
     <string-array name="valoresCategoriaTienda">
@@ -52,6 +61,44 @@
         <item>Telefonía</item>
         <item>Accesorios</item>
         <item>Varios</item>
+    </string-array>
+
+    <string-array name="Dispositivo">
+        <item>Laptop</item>
+        <item>PC de escritorio</item>
+        <item>Celular</item>
+        <item>Tablet</item>
+    </string-array>
+
+    <string-array name="Pantalla">
+        <item>11 pulgadas</item>
+        <item>12 pulgadas</item>
+        <item>13 pulgadas</item>
+        <item>14 pulgadas</item>
+        <item>15 pulgadas</item>
+        <item>16 pulgadas o más</item>
+    </string-array>
+
+    <string-array name="MemoriaRAM">
+        <item>2 GB</item>
+        <item>4 GB</item>
+        <item>8 GB</item>
+        <item>16 GB</item>
+    </string-array>
+
+    <string-array name="MemoriaSecundaria">
+        <item>512 GB</item>
+        <item>1024 GB</item>
+        <item>2048 GB</item>
+        <item>Mayor a 2048 GB</item>
+    </string-array>
+
+    <string-array name="Procesador">
+        <item>Intel Core I5-450m</item>
+    </string-array>
+
+    <string-array name="Precio">
+        <item>Menor a $5,000</item>
     </string-array>
 
 </resources>
