@@ -24,5 +24,10 @@ public class MiPerfilActiv extends AppCompatActivity {
     public void cambiarPantallaPrincipal(View v){
         Intent intPantallaPrincipal= new Intent(this, PantallaPrincipalActiv.class);
         startActivity(intPantallaPrincipal);
+        finish();
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

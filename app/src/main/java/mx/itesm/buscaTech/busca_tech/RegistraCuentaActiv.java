@@ -17,5 +17,10 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     public void mandarALogin(View v){
         Intent intLogin= new Intent(this,LoginActiv.class);
         startActivity(intLogin);
+        finish();
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

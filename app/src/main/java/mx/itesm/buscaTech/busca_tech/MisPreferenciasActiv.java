@@ -11,4 +11,8 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         this.setTitle(R.string.strMisPreferencias);
         setContentView(R.layout.activity_mis_preferencias);
     }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

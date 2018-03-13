@@ -16,5 +16,12 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
     public void cambiarAPantallaCambioUsuarioContra(View v){
         Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
         startActivity(intCambioUsuContra);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

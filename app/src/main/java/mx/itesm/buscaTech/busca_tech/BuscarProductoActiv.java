@@ -11,4 +11,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
         this.setTitle(R.string.strBuscaTuProducto);
         setContentView(R.layout.activity_buscar_producto);
     }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
