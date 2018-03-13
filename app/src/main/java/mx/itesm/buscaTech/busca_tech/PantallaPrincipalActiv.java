@@ -89,13 +89,16 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         } else if (id == R.id.nav_BuscarProducto) {
             Intent intBuscarProducto=new Intent(this, BuscarProductoActiv.class);
             startActivity(intBuscarProducto);
-        } else if (id == R.id.nav_CambiarUsuContra) {
+        } else if (id == R.id.nav_MiPerfil) {
+            Intent intMiPerfil= new Intent(this,MiPerfilActiv.class);
+            startActivity(intMiPerfil);
 
         } else if (id == R.id.nav_SugerirTienda) {
             Intent intSugerirTienda= new Intent(this,SugerirTiendaActiv.class);
             startActivity(intSugerirTienda);
         } else if (id == R.id.nav_Preferencias) {
-
+            Intent intMisPreferencias= new Intent(this, MisPreferenciasActiv.class);
+            startActivity(intMisPreferencias);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

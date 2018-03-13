@@ -21,9 +21,9 @@
     <item android:title="Configuración">
         <menu>
             <item
-                android:id="@+id/nav_CambiarUsuContra"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Cambiar usuario/contraseña" />
+                android:id="@+id/nav_MiPerfil"
+                android:icon="@android:drawable/ic_menu_myplaces"
+                android:title="@string/strMiPerfil" />
             <item
                 android:id="@+id/nav_Logout"
                 android:icon="@android:drawable/ic_lock_idle_lock"

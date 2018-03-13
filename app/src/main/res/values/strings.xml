@@ -21,10 +21,37 @@
     <string name="strSugerencias">SUGERENCIAS</string>
     <string name="strBuscaTuProducto">BUSCA TU PRODUCTO</string>
     <string name="strMisPreferencias">MIS PREFERENCIAS</string>
-    <string name="strConfiguracion">CONFIGURACION DE CUENTA</string>
     <string name="strCreaTuCuenta">CREA TU CUENTA</string>
     <string name="strBuscaTech">BUSCA TECH</string>
     <string name="strSugiereTienda">Sugerir una tienda</string>
+    <string name="strNombreTienda">Nombre de la tienda</string>
+    <string name="strDireccion">Dirección</string>
+    <string name="strDescripcionOpcional">Descripción (Opcional)</string>
+    <string name="strCategoriaPrincipal">Categoría principal de la tienda:</string>
+    <string name="strSugerir">Sugerir tienda</string>
+    <string name="strDetalles">Detalles</string>
+    <string name="strEliminar">Eliminar</string>
+    <string name="strTomas">Tomás Bravo Ortiz</string>
+    <string name="strCorreoElectronico">Correo electrónico:</string>
+    <string name="strCorreTommy">tomasbravo702@gmail.com</string>
+    <string name="strContraseña">Contraseña:</string>
+    <string name="strHecho">Hecho</string>
+    <string name="strCambiarNombreUsuario">Cambiar nombre de usuario</string>
+    <string name="strNuevoNombreUsuario">Nuevo nombre de usuario</string>
+    <string name="strCancelar">Cancelar</string>
+    <string name="strCambiarContrasena">Cambiar contraseña</string>
+    <string name="strAntiguaContrasena">Antigua contraseña</string>
+    <string name="strNuevaContrasena">Nueva contraseña</string>
+    <string name="strVeriContrasenaNueva">Verifica contraseña nueva</string>
+    <string name="strMiPerfil">Mi perfil</string>
+    <string name="strConfiguración">CONFIGURACION</string>
 
+
+    <string-array name="valoresCategoriaTienda">
+        <item>Cómputo</item>
+        <item>Telefonía</item>
+        <item>Accesorios</item>
+        <item>Varios</item>
+    </string-array>
 
 </resources>

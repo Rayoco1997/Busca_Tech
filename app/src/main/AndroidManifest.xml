@@ -22,7 +22,11 @@
             android:label="@string/title_activity_pantalla_principal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BuscarProductoActiv" />
-        <activity android:name=".SugerirTiendaActiv"></activity>
+        <activity android:name=".SugerirTiendaActiv" />
+        <activity android:name=".MisPreferenciasActiv" />
+        <activity android:name=".MiPerfilActiv" />
+        <activity android:name=".CambiarUsuarioActiv" />
+        <activity android:name=".CambiarContrasenaActiv"></activity>
     </application>
 
 </manifest>
