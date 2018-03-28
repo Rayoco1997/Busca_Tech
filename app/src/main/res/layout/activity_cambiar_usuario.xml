@@ -47,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etUsuarioNuevo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strNuevoNombreUsuario" />
@@ -73,12 +74,12 @@
             android:text="@string/strCancelar" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/btnCambiarUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_light"
-            android:onClick="cambiarAPantallaCambioUsuarioContra"
+            android:onClick="cambiarNombre"
             android:text="@string/strHecho" />
     </LinearLayout>
 

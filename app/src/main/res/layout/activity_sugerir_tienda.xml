@@ -28,6 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView8">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etNombreTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/strNombreTienda" />
@@ -43,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etDireccionTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/strDireccion" />
@@ -58,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etDescripcionTienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/strDescripcionOpcional" />
@@ -79,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spCategoriaTienda"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -91,13 +94,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnSugerirTienda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="cambiarPantallaPrincipal"
+        android:onClick="sugerirTienda"
         android:text="@string/strSugerir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

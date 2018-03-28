@@ -34,6 +34,12 @@ public class MiPerfilActiv extends AppCompatActivity {
         Intent intLogin= new Intent(this,LoginActiv.class);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mostrarDatos();
+    }
+
     private void mostrarDatos() {
         // String yourFilePath = getApplicationContext().getFilesDir() + "/" + "DatosUsuario";
         // File yourFile = new File( yourFilePath );

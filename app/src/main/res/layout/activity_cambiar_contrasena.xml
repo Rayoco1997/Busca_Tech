@@ -49,6 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etContrasenaAntigua"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strAntiguaContrasena" />
@@ -68,6 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etContrasenaNueva1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strNuevaContrasena" />
@@ -86,6 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/etContrasenaNueva2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strVeriContrasenaNueva" />
@@ -117,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_light"
-            android:onClick="cambiarAPantallaCambioUsuarioContra"
+            android:onClick="cambiarContrasena"
             android:text="@string/strHecho" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
