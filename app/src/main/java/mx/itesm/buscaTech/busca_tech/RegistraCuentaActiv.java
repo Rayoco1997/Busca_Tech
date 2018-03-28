@@ -65,7 +65,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
             usuario.setCorreo(etCorreo.getText().toString());
             usuario.setNombreUsuario(etNombreUsuario.getText().toString());
             usuario.setContrasena(etContrasena1.getText().toString());
-            usuario.setImagen(null);
+            //usuario.setImagen(null);
             UsuarioBD bd = UsuarioBD.getInstance(this);
             bd.usuarioDAO().insertar(usuario);
             Log.i("Grabar registro","Se grabó el registro del correo "+ etCorreo.getText().toString());

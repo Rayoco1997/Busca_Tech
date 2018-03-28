@@ -8,7 +8,7 @@
     tools:context="mx.itesm.buscaTech.busca_tech.MiPerfilActiv">
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/ivFotoDatos"
         android:layout_width="127dp"
         android:layout_height="116dp"
         android:layout_marginEnd="8dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/tommy_busca_tech" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvUsuarioDatos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -32,10 +32,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+        app:layout_constraintTop_toBottomOf="@+id/ivFotoDatos" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvCorreoDatos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
         android:textColor="@android:color/background_dark"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuarioDatos" />
 
     <TextView
         android:id="@+id/textView7"
@@ -69,10 +69,10 @@
         android:textColor="@android:color/background_dark"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCorreoDatos" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvContrasenaDatos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,7 +93,7 @@
         android:background="@android:color/transparent"
         android:onClick="cambiarAPantallaCambioContrasena"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/tvContrasenaDatos"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:srcCompat="@drawable/button_edit" />
 
@@ -107,8 +107,8 @@
         android:background="@android:color/transparent"
         android:onClick="cambiarAPantallaCambioUsuario"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/tvUsuarioDatos"
+        app:layout_constraintTop_toBottomOf="@+id/ivFotoDatos"
         app:srcCompat="@drawable/button_edit" />
 
     <Button

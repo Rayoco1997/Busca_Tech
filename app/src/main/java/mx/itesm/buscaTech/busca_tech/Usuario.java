@@ -21,8 +21,6 @@ public class Usuario {
     @ColumnInfo(name = "contrasena")
     private String contrasena;
 
-    @ColumnInfo(name = "imagen")
-    private byte[] imagen;
 
     public String getCorreo() {
         return correo;
@@ -46,13 +44,5 @@ public class Usuario {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
     }
 }
