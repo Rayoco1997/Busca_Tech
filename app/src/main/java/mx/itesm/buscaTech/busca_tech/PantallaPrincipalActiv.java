@@ -3,8 +3,7 @@ package mx.itesm.buscaTech.busca_tech;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -66,6 +65,10 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             tvNavCorreo.setText("");
         }
 
+        ListaRVProdFrag fragLista = new ListaRVProdFrag();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.layoutProductos,fragLista);
+        transaction.commit();
     }
 
     @Override
