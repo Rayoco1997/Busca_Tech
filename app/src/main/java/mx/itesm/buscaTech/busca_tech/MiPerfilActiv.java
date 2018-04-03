@@ -38,6 +38,8 @@ public class MiPerfilActiv extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mostrarDatos();
+
+
     }
 
     private void mostrarDatos() {
@@ -85,10 +87,19 @@ public class MiPerfilActiv extends AppCompatActivity {
         Usuario usuario = new Usuario();
         UsuarioBD bd = UsuarioBD.getInstance(this);
         usuario = bd.usuarioDAO().buscarPorCorreo(correo);
-        tvCorreoDatos.setText(usuario.getCorreo().toString());
-        tvUsuarioDatos.setText(usuario.getNombreUsuario().toString());
+        setText(tvCorreoDatos,usuario.getCorreo().toString());
+        setText(tvUsuarioDatos, usuario.getNombreUsuario().toString());
         String asteristicos = cambiarAAsteristicos(usuario.getContrasena().toString());
-        tvContrasenaDatos.setText(asteristicos);
+        setText(tvContrasenaDatos,asteristicos);
+    }
+
+    private void setText(final TextView text,final String value){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                text.setText(value);
+            }
+        });
     }
 
     public String cambiarAAsteristicos(String contrasena){

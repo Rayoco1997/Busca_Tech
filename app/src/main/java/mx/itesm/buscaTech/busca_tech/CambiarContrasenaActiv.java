@@ -30,8 +30,8 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
         etContrasenaNueva2 = findViewById(R.id.etContrasenaNueva2);
     }
     public void cambiarAPantallaCambioUsuarioContra(View v){
-        Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-        startActivity(intCambioUsuContra);
+        /*Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
+        startActivity(intCambioUsuContra);*/
         finish();
     }
 
@@ -75,8 +75,9 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
             }
             if(correcto){
                 Toast.makeText(this, "Se actualizó la contraseña correctamente.", Toast.LENGTH_SHORT).show();
-                Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-                startActivity(intCambioUsuContra);
+                /*Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
+                startActivity(intCambioUsuContra);*/
+                finish();
             }else{
                 Toast.makeText(this, "Hubo un error al actualizar la contraseña, intente de nuevo.", Toast.LENGTH_SHORT).show();
             }

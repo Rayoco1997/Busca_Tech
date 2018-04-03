@@ -26,8 +26,8 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
         etUsuarioNuevo = findViewById(R.id.etUsuarioNuevo);
     }
     public void cambiarAPantallaCambioUsuarioContra(View v){
-        Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-        startActivity(intCambioUsuContra);
+        /*Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
+        startActivity(intCambioUsuContra);*/
         finish();
     }
 
@@ -69,8 +69,9 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
             }
             if (correcto) {
                 Toast.makeText(this, "Se cambió el nombre de usuario correctamente.", Toast.LENGTH_SHORT).show();
-                Intent intCambioUsuContra = new Intent(this, MiPerfilActiv.class);
-                startActivity(intCambioUsuContra);
+                /*Intent intCambioUsuContra = new Intent(this, MiPerfilActiv.class);
+                startActivity(intCambioUsuContra);*/
+                finish();
             } else {
                 Toast.makeText(this, "No se pudo cambiar el nombre de usuario, intente nuevamente.", Toast.LENGTH_SHORT).show();
             }

@@ -81,7 +81,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     private void grabarRegistro(){
         try {
             Usuario usuario = new Usuario();
-            usuario.setCorreo(etCorreo.getText().toString());
+            usuario.setCorreo(etCorreo.getText().toString().toLowerCase());
             usuario.setNombreUsuario(etNombreUsuario.getText().toString());
             usuario.setContrasena(etContrasena1.getText().toString());
             //usuario.setImagen(null);

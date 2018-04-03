@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.util.concurrent.ExecutionException;
 
 public class LoginActiv extends AppCompatActivity {
     Boolean coincide = false;
@@ -24,6 +27,15 @@ public class LoginActiv extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         etCorreo = findViewById(R.id.etCorreoLogin);
         etContrasena = findViewById(R.id.etContrasenaLogin);
+        File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
+        if(file.exists()){
+            Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
+            startActivity(intPantallaPrincipal);
+            finish();
+        }
+        else{
+            //Nada GEGE
+        }
     }
 
     public void mandarAPantallaPrincipal(View v){
@@ -42,7 +54,7 @@ public class LoginActiv extends AppCompatActivity {
     }
 
     public void iniciarSesion(View v){
-        String correo = etCorreo.getText().toString();
+        String correo = etCorreo.getText().toString().toLowerCase();
         String contrasena = etContrasena.getText().toString();
         if(correo.equals("")){
             etCorreo.setError("El campo no puede estar vacío.");
@@ -56,8 +68,10 @@ public class LoginActiv extends AppCompatActivity {
 
             }
             if (coincide){
+                Toast.makeText(this, "Bienvenido "+correo, Toast.LENGTH_SHORT).show();
                 Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
                 startActivity(intPantallaPrincipal);
+                finish();
             }else {
                 Toast.makeText(this, "La contraseña y/o correo son incorrectos", Toast.LENGTH_LONG).show();
             }
