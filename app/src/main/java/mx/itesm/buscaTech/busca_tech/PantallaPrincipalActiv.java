@@ -68,7 +68,20 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mostrarDatos();
+    }
 
+    private void setText(final TextView text,final String value){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                text.setText(value);
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {
@@ -162,8 +175,8 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         Usuario usuario = new Usuario();
         UsuarioBD bd = UsuarioBD.getInstance(this);
         usuario = bd.usuarioDAO().buscarPorCorreo(correo);
-        tvNavCorreo.setText(usuario.getCorreo().toString());
-        tvNavNombre.setText(usuario.getNombreUsuario().toString());
+        setText(tvNavCorreo,usuario.getCorreo().toString());
+        setText(tvNavNombre,usuario.getNombreUsuario().toString());
     }
 
     private class BDUsuario extends AsyncTask<Void, Void, Void> {
