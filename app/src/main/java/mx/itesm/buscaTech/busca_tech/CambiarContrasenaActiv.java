@@ -18,6 +18,7 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
     EditText etContrasenaAntigua;
     EditText etContrasenaNueva1;
     EditText etContrasenaNueva2;
+    Boolean correcto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,14 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
     }
 
     public void cambiarContrasena(View v) {
-        if (etContrasenaNueva1.getText().toString().equals(etContrasenaNueva2.getText().toString())){
+        if(etContrasenaNueva1.getText().toString().equals("")){
+            etContrasenaNueva1.setError("El campo no puede estar vacío.");
+        }else if(etContrasenaNueva2.getText().toString().equals("")){
+            etContrasenaNueva2.setError("El campo no puede estar vacío.");
+        }else if(etContrasenaAntigua.getText().toString().equals("")){
+            etContrasenaAntigua.setError("El campo no puede estar vacío.");
+        }
+        else if (etContrasenaNueva1.getText().toString().equals(etContrasenaNueva2.getText().toString()) && !etContrasenaAntigua.getText().toString().equals("")){
             StringBuilder sb = new StringBuilder();
             try {
                 FileInputStream fis = null;
@@ -60,8 +68,20 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
             String correo = sb.toString();
             Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
             new BDUsuario(correo, etContrasenaAntigua.getText().toString(), etContrasenaNueva1.getText().toString()).execute();
+            try {
+                Thread.sleep(1000);
+            }catch (Exception e){
+
+            }
+            if(correcto){
+                Toast.makeText(this, "Se actualizó la contraseña correctamente.", Toast.LENGTH_SHORT).show();
+                Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
+                startActivity(intCambioUsuContra);
+            }else{
+                Toast.makeText(this, "Hubo un error al actualizar la contraseña, intente de nuevo.", Toast.LENGTH_SHORT).show();
+            }
         }else{
-            Toast.makeText(this, "Las contraseñas nuevas no son iguales", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Las contraseñas nuevas no son iguales.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -87,11 +107,13 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
         UsuarioBD bd = UsuarioBD.getInstance(this);
         usuario = bd.usuarioDAO().buscarPorCorreo(correo);
         if (usuario.getContrasena().equals(contrasenaAntigua)){
+            correcto=true;
             bd.usuarioDAO().actualizarContrasena(contrasenaNueva, correo);
-            Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-            startActivity(intCambioUsuContra);
+            /*Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
+            startActivity(intCambioUsuContra);*/
         }else {
             Log.i("Cambiar Contraseña BD", "La contraseña antigua no era igual a la BD");
+            correcto=false;
         }
     }
 }

@@ -15,7 +15,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     EditText etCorreo;
     EditText etContrasena1;
     EditText etContrasena2;
-
+    Boolean correcto=false;
 
 
     @Override
@@ -40,15 +40,34 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     }
 
     public void registrarUsuario(View v) {
-        if (!etCorreo.getText().toString().equals("")
+        if(etCorreo.getText().toString().equals("")){
+            etCorreo.setError("El campo no puede estar vacío.");
+        }else if(etContrasena1.getText().toString().equals("")){
+            etContrasena1.setError("El campo no puede estar vacío.");
+        }else if(etContrasena2.getText().toString().equals("")){
+            etContrasena2.setError("El campo no puede estar vacío.");
+        }else if(etNombreUsuario.getText().toString().equals("")){
+            etNombreUsuario.setError("El campo no puede estar vacío.");
+        }else if (!etCorreo.getText().toString().equals("")
                 && !etNombreUsuario.getText().toString().equals("")
                 && !etContrasena1.getText().toString().equals("")
                 && !etContrasena2.getText().toString().equals("")){
             if (etContrasena1.getText().toString().equals(etContrasena2.getText().toString())) {
                 new BDUsuario().execute();
-                Intent intLogin= new Intent(this,LoginActiv.class);
-                startActivity(intLogin);
-                finish();
+                try {
+                    Thread.sleep(1000);
+                }catch (Exception e){
+
+                }
+                if(correcto){
+                    Toast.makeText(this, "Se registró el usuario correctamente.", Toast.LENGTH_SHORT).show();
+                    Intent intLogin= new Intent(this,LoginActiv.class);
+                    startActivity(intLogin);
+                    finish();
+                }else{
+                    Toast.makeText(this, "No se pudo regisrar el usuario, intente nuevamente.", Toast.LENGTH_SHORT).show();
+                }
+
             }// En caso de que la constraseña no sea igual
             else {
                 Toast.makeText(this, "La constraseña no coincide...", Toast.LENGTH_LONG).show();
@@ -69,10 +88,11 @@ public class RegistraCuentaActiv extends AppCompatActivity {
             UsuarioBD bd = UsuarioBD.getInstance(this);
             bd.usuarioDAO().insertar(usuario);
             Log.i("Grabar registro","Se grabó el registro del correo "+ etCorreo.getText().toString());
+            correcto=true;
 
         } catch (Exception e) {
             Log.i("Grabar registro","Se detectó un error en el registro del usuario, verifique salu2");
-
+            correcto=false;
         }
     }
 

@@ -36,10 +36,19 @@ public class LoginActiv extends AppCompatActivity {
         startActivity(intRegistroUsuario);
     }
 
+    public void mandarABusqueda(View v){
+        Intent intMandarABusqueda = new Intent(this, BuscarProductoActiv.class);
+        startActivity(intMandarABusqueda);
+    }
+
     public void iniciarSesion(View v){
         String correo = etCorreo.getText().toString();
         String contrasena = etContrasena.getText().toString();
-        if (!correo.equals("") &&!contrasena.equals("")){
+        if(correo.equals("")){
+            etCorreo.setError("El campo no puede estar vacío.");
+        }else if(contrasena.equals("")){
+            etContrasena.setError("El campo no puede estar vacío.");
+        }else if (!correo.equals("") &&!contrasena.equals("")){
             new BDUsuario(correo, contrasena).execute();
             try {
                 Thread.sleep(1000);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 public class CambiarUsuarioActiv extends AppCompatActivity {
 
     EditText etUsuarioNuevo;
+    Boolean correcto = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,23 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
         // String correo = yourFile.toString();
         String correo = sb.toString();
         Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
-        new BDUsuario(correo, etUsuarioNuevo.getText().toString()).execute();
+        if(etUsuarioNuevo.getText().toString().equals("")){
+            etUsuarioNuevo.setError("El campo no puede estar vacío.");
+        }else {
+            new BDUsuario(correo, etUsuarioNuevo.getText().toString()).execute();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+
+            }
+            if (correcto) {
+                Toast.makeText(this, "Se cambió el nombre de usuario correctamente.", Toast.LENGTH_SHORT).show();
+                Intent intCambioUsuContra = new Intent(this, MiPerfilActiv.class);
+                startActivity(intCambioUsuContra);
+            } else {
+                Toast.makeText(this, "No se pudo cambiar el nombre de usuario, intente nuevamente.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private class BDUsuario extends AsyncTask<Void, Void, Void> {
@@ -78,7 +96,6 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
         Usuario usuario = new Usuario();
         UsuarioBD bd = UsuarioBD.getInstance(this);
         bd.usuarioDAO().actualizarNombreUsuario(nombreUsuario, correo);
-        Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-        startActivity(intCambioUsuContra);
+        correcto=true;
     }
 }

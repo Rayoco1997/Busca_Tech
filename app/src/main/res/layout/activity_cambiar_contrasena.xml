@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strAntiguaContrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -74,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strNuevaContrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -94,7 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/strVeriContrasenaNueva"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
