@@ -58,9 +58,11 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         tvNavNombre = (TextView) headerView.findViewById(R.id.tvNavNombre);
         tvNavCorreo = (TextView) headerView.findViewById(R.id.tvNavCorreo);
         if(file.exists()){
+            Log.i("InicioSesion:","ARCHIVO ENCONTRADO, ENTRA AL IF");
             mostrarDatos();
         }
         else{
+            Log.i("InicioSesion:","ARCHIVO NO ENCONTRADO, ENTRA AL ELSE");
             tvNavNombre.setText("Usuario Invitado");
             tvNavCorreo.setText("");
         }
@@ -74,7 +76,21 @@ public class PantallaPrincipalActiv extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mostrarDatos();
+        File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
+        if(file.exists()){
+            Log.i("InicioSesion:","ARCHIVO ENCONTRADO, ENTRA AL IF");
+            mostrarDatos();
+        }
+        else{
+            Log.i("InicioSesion:","ARCHIVO NO ENCONTRADO, ENTRA AL ELSE");
+            tvNavNombre.setText("Usuario Invitado");
+            tvNavCorreo.setText("");
+        }
+
+        ListaRVProdFrag fragLista = new ListaRVProdFrag();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.layoutProductos,fragLista);
+        transaction.commit();
     }
 
     private void setText(final TextView text,final String value){
