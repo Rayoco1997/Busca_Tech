@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -144,6 +145,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             // BORRA EL ARCHIVO
             File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
             boolean deleted = file.delete();
+            Toast.makeText(this, "Sesión cerrada correectamente.", Toast.LENGTH_SHORT).show();
             Intent intLogin= new Intent(this,LoginActiv.class);
             startActivity(intLogin);
             finish();
