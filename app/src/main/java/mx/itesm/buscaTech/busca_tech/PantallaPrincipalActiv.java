@@ -17,6 +17,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +30,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
     TextView tvNavNombre;
     TextView tvNavCorreo;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         setContentView(R.layout.activity_pantalla_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mAuth = FirebaseAuth.getInstance();
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +58,14 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
         View headerView = navigationView.getHeaderView(0);
         tvNavNombre = (TextView) headerView.findViewById(R.id.tvNavNombre);
         tvNavCorreo = (TextView) headerView.findViewById(R.id.tvNavCorreo);
+
+        cargaInformacionUsuario();
+
+        /*
+        File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
         if(file.exists()){
             Log.i("InicioSesion:","ARCHIVO ENCONTRADO, ENTRA AL IF");
             mostrarDatos();
@@ -67,6 +75,8 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             tvNavNombre.setText("Usuario Invitado");
             tvNavCorreo.setText("");
         }
+        */
+
 
         ListaRVProdFrag fragLista = new ListaRVProdFrag();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -74,6 +84,8 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         transaction.commit();
     }
 
+
+    /*
     @Override
     protected void onResume() {
         super.onResume();
@@ -93,6 +105,32 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         transaction.replace(R.id.layoutProductos,fragLista);
         transaction.commit();
     }
+    */
+
+
+    private void cargaInformacionUsuario(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        String nombre = "A";
+        String correo = "A";
+        if (user != null){
+            if (user.getDisplayName() != null){
+                nombre = user.getDisplayName();
+            }
+            if (user.getEmail() != null){
+                correo = user.getEmail();
+            }
+        }
+        // El usuario ingresó como invitado
+        else {
+            nombre = "Invitado";
+            correo = "";
+        }
+        setText(tvNavNombre, nombre);
+        setText(tvNavCorreo, correo);
+        //tvNavNombre.setText(nombre);
+        //tvNavCorreo.setText(correo);
+    }
+
 
     private void setText(final TextView text,final String value){
         runOnUiThread(new Runnable() {
@@ -143,15 +181,21 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
         if (id == R.id.nav_Logout) {
             // BORRA EL ARCHIVO
+            /*
             File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
             boolean deleted = file.delete();
+            */
+
+            mAuth.signOut();
             Toast.makeText(this, "Sesión cerrada correectamente.", Toast.LENGTH_SHORT).show();
             Intent intLogin= new Intent(this,LoginActiv.class);
             startActivity(intLogin);
             finish();
+
         } else if (id == R.id.nav_BuscarProducto) {
             Intent intBuscarProducto=new Intent(this, BuscarProductoActiv.class);
             startActivity(intBuscarProducto);
+
         } else if (id == R.id.nav_MiPerfil) {
             Intent intMiPerfil= new Intent(this,MiPerfilActiv.class);
             startActivity(intMiPerfil);
@@ -159,9 +203,11 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         } else if (id == R.id.nav_SugerirTienda) {
             Intent intSugerirTienda= new Intent(this,SugerirTiendaActiv.class);
             startActivity(intSugerirTienda);
+
         } else if (id == R.id.nav_Preferencias) {
             Intent intMisPreferencias= new Intent(this, MisPreferenciasActiv.class);
             startActivity(intMisPreferencias);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

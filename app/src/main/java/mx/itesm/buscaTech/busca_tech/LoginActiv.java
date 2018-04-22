@@ -1,8 +1,10 @@
 package mx.itesm.buscaTech.busca_tech;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,11 +26,17 @@ public class LoginActiv extends AppCompatActivity {
     Boolean coincide = false;
     EditText etCorreo;
     EditText etContrasena;
+    FirebaseAuth mAuth;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setTitle(R.string.strBienvenido);
+
+        mAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+
         setContentView(R.layout.activity_login);
         etCorreo = findViewById(R.id.etCorreoLogin);
         etContrasena = findViewById(R.id.etContrasenaLogin);
@@ -38,7 +51,18 @@ public class LoginActiv extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(this, PantallaPrincipalActiv.class));
+        }
+    }
+
     public void mandarAPantallaPrincipal(View v){
+        finish();
         Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
         startActivity(intPantallaPrincipal);
     }
@@ -51,6 +75,37 @@ public class LoginActiv extends AppCompatActivity {
     public void mandarABusqueda(View v){
         Intent intMandarABusqueda = new Intent(this, BuscarProductoActiv.class);
         startActivity(intMandarABusqueda);
+    }
+
+    public void iniciarSesionFire(View v){
+        final String correo = etCorreo.getText().toString();
+        String contrasena = etContrasena.getText().toString();
+        if (correo.equals("")){
+            etCorreo.setError("El campo no puede estar vacío.");
+            etCorreo.requestFocus();
+        }else if (contrasena.equals("")){
+            etContrasena.setError("El campo no puede estar vacío.");
+            etContrasena.requestFocus();
+        }else if (contrasena.length() < 6){
+            etContrasena.setError("La contraseña contiene al menos 6 caracteres.");
+            etContrasena.requestFocus();
+        }else{
+            progressDialog.setMessage("Iniciando sesión...");
+            progressDialog.show();
+            mAuth.signInWithEmailAndPassword(correo, contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        // Toast.makeText(getApplicationContext(), "Bienvenido "+correo, Toast.LENGTH_SHORT).show();
+                        Intent intPantallaPrincipal= new Intent(getApplicationContext(), PantallaPrincipalActiv.class);
+                        startActivity(intPantallaPrincipal);
+                        finish();
+                                               Toast.makeText(getApplicationContext(), "No se pudo ingresar.", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        }
     }
 
     public void iniciarSesion(View v){
