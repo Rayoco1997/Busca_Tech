@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +24,7 @@ public class MiPerfilActiv extends AppCompatActivity {
     TextView tvUsuarioDatos;
     TextView tvCorreoDatos;
     TextView tvContrasenaDatos;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +34,45 @@ public class MiPerfilActiv extends AppCompatActivity {
         tvUsuarioDatos = findViewById(R.id.tvUsuarioDatos);
         tvCorreoDatos = findViewById(R.id.tvCorreoDatos);
         tvContrasenaDatos = findViewById(R.id.tvContrasenaDatos);
-        mostrarDatos();
-        Intent intLogin= new Intent(this,LoginActiv.class);
+        mAuth = FirebaseAuth.getInstance();
+        mostrarPerfil();
+        // mostrarDatos();
+        // Intent intLogin= new Intent(this,LoginActiv.class);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mostrarDatos();
+        mostrarPerfil();
+        // mostrarDatos();
+    }
 
+
+    private void mostrarPerfil() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        String nombre = "";
+        String correo = "";
+        if (user != null){
+            if (user.getDisplayName() != null){
+                nombre = user.getDisplayName();
+            }
+            if (user.getEmail() != null){
+                correo = user.getEmail();
+            }
+        }
+        // El usuario ingresó como invitado
+        else {
+            nombre = "Invitado";
+            correo = "";
+        }
+        setText(tvUsuarioDatos, nombre);
+        setText(tvCorreoDatos, correo);
+        setText(tvContrasenaDatos, "******");
 
     }
 
+
+    /*
     private void mostrarDatos() {
         // String yourFilePath = getApplicationContext().getFilesDir() + "/" + "DatosUsuario";
         // File yourFile = new File( yourFilePath );
@@ -64,34 +95,37 @@ public class MiPerfilActiv extends AppCompatActivity {
         Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
         new BDUsuario(correo).execute();
     }
+    */
+
 
     public void cambiarAPantallaCambioContrasena(View v){
         Intent intCambioContrasena= new Intent(this, CambiarContrasenaActiv.class);
         startActivity(intCambioContrasena);
     }
+
+
     public void cambiarAPantallaCambioUsuario(View v){
         Intent intCambioUsuario= new Intent(this, CambiarUsuarioActiv.class);
         startActivity(intCambioUsuario);
     }
+
+
     public void cambiarPantallaPrincipal(View v){
-        /*Intent intPantallaPrincipal= new Intent(this, PantallaPrincipalActiv.class);
-        startActivity(intPantallaPrincipal);*/
         finish();
     }
+
+
+    public void cambiarPantallaCambioCorreo(View v){
+        Intent intCambioCorreo = new Intent(this, CambiarCorreoActiv.class);
+        startActivity(intCambioCorreo);
+    }
+
+
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
 
-    public void obtenerDatos(String correo){
-        Usuario usuario = new Usuario();
-        UsuarioBD bd = UsuarioBD.getInstance(this);
-        usuario = bd.usuarioDAO().buscarPorCorreo(correo);
-        setText(tvCorreoDatos,usuario.getCorreo().toString());
-        setText(tvUsuarioDatos, usuario.getNombreUsuario().toString());
-        String asteristicos = cambiarAAsteristicos(usuario.getContrasena().toString());
-        setText(tvContrasenaDatos,asteristicos);
-    }
 
     private void setText(final TextView text,final String value){
         runOnUiThread(new Runnable() {
@@ -102,6 +136,19 @@ public class MiPerfilActiv extends AppCompatActivity {
         });
     }
 
+
+    /*
+    public void obtenerDatos(String correo){
+        Usuario usuario = new Usuario();
+        UsuarioBD bd = UsuarioBD.getInstance(this);
+        usuario = bd.usuarioDAO().buscarPorCorreo(correo);
+        setText(tvCorreoDatos,usuario.getCorreo().toString());
+        setText(tvUsuarioDatos, usuario.getNombreUsuario().toString());
+        String asteristicos = cambiarAAsteristicos(usuario.getContrasena().toString());
+        setText(tvContrasenaDatos,asteristicos);
+    }
+
+
     public String cambiarAAsteristicos(String contrasena){
         String asteristicos = "";
         for (int i = 0; i < contrasena.length(); i++){
@@ -109,6 +156,7 @@ public class MiPerfilActiv extends AppCompatActivity {
         }
         return asteristicos;
     }
+
 
     private class BDUsuario extends AsyncTask<Void, Void, Void> {
         String correo;
@@ -120,6 +168,8 @@ public class MiPerfilActiv extends AppCompatActivity {
             obtenerDatos(correo);
             return null;
         }
-
     }
+    */
+
+
 }

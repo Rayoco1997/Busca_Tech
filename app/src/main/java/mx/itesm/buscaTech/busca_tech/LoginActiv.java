@@ -100,7 +100,8 @@ public class LoginActiv extends AppCompatActivity {
                         Intent intPantallaPrincipal= new Intent(getApplicationContext(), PantallaPrincipalActiv.class);
                         startActivity(intPantallaPrincipal);
                         finish();
-                                               Toast.makeText(getApplicationContext(), "No se pudo ingresar.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No se pudo ingresar.", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }

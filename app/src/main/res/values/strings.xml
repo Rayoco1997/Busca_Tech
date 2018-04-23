@@ -104,5 +104,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="strNuevoCorreoUsuario">Nuevo correo</string>
+    <string name="strCambiarCorreo">Cambiar correo electrónico</string>
+    <string name="strHintIngresarContrasena">Ingresa tu contraseña actual</string>
 
 </resources>
