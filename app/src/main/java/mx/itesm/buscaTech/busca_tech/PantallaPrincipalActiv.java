@@ -63,7 +63,6 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         tvNavCorreo = (TextView) headerView.findViewById(R.id.tvNavCorreo);
 
         cargaInformacionUsuario();
-
         /*
         File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
         if(file.exists()){
@@ -107,6 +106,11 @@ public class PantallaPrincipalActiv extends AppCompatActivity
     }
     */
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargaInformacionUsuario();
+    }
 
     private void cargaInformacionUsuario(){
         FirebaseUser user = mAuth.getCurrentUser();
@@ -185,7 +189,6 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
             boolean deleted = file.delete();
             */
-
             mAuth.signOut();
             Toast.makeText(this, "Sesión cerrada correectamente.", Toast.LENGTH_SHORT).show();
             Intent intLogin= new Intent(this,LoginActiv.class);

@@ -30,7 +30,8 @@
         <activity android:name=".CambiarUsuarioActiv" />
         <activity android:name=".CambiarContrasenaActiv" />
         <activity android:name=".BusquedaAvanzadaActiv" />
-        <activity android:name=".CambiarCorreoActiv"></activity>
+        <activity android:name=".CambiarCorreoActiv" />
+        <activity android:name=".OlvidarContrasenaActiv"></activity>
     </application>
 
 </manifest>

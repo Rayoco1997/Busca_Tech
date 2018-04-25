@@ -109,6 +109,12 @@ public class LoginActiv extends AppCompatActivity {
         }
     }
 
+    public void mandarOlvidarContrasena(View v){
+        Intent intOlvidarC= new Intent(this, OlvidarContrasenaActiv.class);
+        startActivity(intOlvidarC);
+    }
+
+
     public void iniciarSesion(View v){
         String correo = etCorreo.getText().toString().toLowerCase();
         String contrasena = etContrasena.getText().toString();

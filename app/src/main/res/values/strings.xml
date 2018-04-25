@@ -107,5 +107,9 @@
     <string name="strNuevoCorreoUsuario">Nuevo correo</string>
     <string name="strCambiarCorreo">Cambiar correo electrónico</string>
     <string name="strHintIngresarContrasena">Ingresa tu contraseña actual</string>
+    <string name="strOlvidasteTuContrasena">¿Olvidaste tu contraseña?</string>
+    <string name="strIntroduceCorreo">Introduce el correo asociado a tu cuenta</string>
+    <string name="strBtnEnviar">Enviar</string>
+    <string name="strBtnRegresar">Regresar</string>
 
 </resources>
