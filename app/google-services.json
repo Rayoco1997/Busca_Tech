@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "306791578037",
+    "firebase_url": "https://buscatech-57099.firebaseio.com",
+    "project_id": "buscatech-57099",
+    "storage_bucket": "buscatech-57099.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306791578037:android:56015379071b1ebe",
+        "android_client_info": {
+          "package_name": "mx.itesm.buscaTech.busca_tech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306791578037-54pg4559n5al76p9eu0952337ur01c0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.itesm.buscaTech.busca_tech",
+            "certificate_hash": "a6c782b5cc062af549729461a1301d8a8e68ab11"
+          }
+        },
+        {
+          "client_id": "306791578037-7d1k60guh0uaoc7bsbs756nvincl94n5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6x0cQfLYRhXu1YOcNhjPuToNFcscs2Ss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306791578037-7d1k60guh0uaoc7bsbs756nvincl94n5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
