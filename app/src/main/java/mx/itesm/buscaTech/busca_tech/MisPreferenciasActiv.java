@@ -28,7 +28,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         setContentView(R.layout.activity_mis_preferencias);
         mAuth = FirebaseAuth.getInstance();
         databasePreferences = FirebaseDatabase.getInstance().getReference("preferencias");
-        // agregarPreferencia();
+        agregarPreferencia();
         obtenerPreferencia();
     }
 
@@ -40,9 +40,9 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
     private void agregarPreferencia(){
         String idUsuario = mAuth.getCurrentUser().getUid();
-        String precio = "W";
-        String nombre = "W";
-        String tienda = "W";
+        String precio = mAuth.getCurrentUser().getUid();
+        String nombre = mAuth.getCurrentUser().getUid();
+        String tienda = mAuth.getCurrentUser().getUid();
 
         String idPreferencia = databasePreferences.push().getKey();
         Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda);
@@ -56,9 +56,12 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
                     Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
-                    Log.i("DATOS", preferencias.toString());
+                    if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
+                        Log.i("DATOS", preferencias.toString());
+                    }
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
