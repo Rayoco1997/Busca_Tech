@@ -78,24 +78,24 @@ public class LoginActiv extends AppCompatActivity {
     }
 
     public void iniciarAnonimo(View v){
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+        progressDialog.setMessage("Iniciando sesión como invitado...");
+        progressDialog.show();
+        mAuth.signInWithEmailAndPassword("invitado@hotmail.com", "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    // Toast.makeText(getApplicationContext(), "Bienvenido "+correo, Toast.LENGTH_SHORT).show();
+                    Intent intPantallaPrincipal= new Intent(getApplicationContext(), PantallaPrincipalActiv.class);
+                    startActivity(intPantallaPrincipal);
+                    finish();
+                }else{
+                    progressDialog.dismiss();
+                    mostrarDialogo("No se pudo ingresar.");
+                }
+            }
+        });
 
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intPantallaPrincipal= new Intent(getApplicationContext(), PantallaPrincipalActiv.class);
-                            startActivity(intPantallaPrincipal);
-                            finish();
 
-                        } else {
-                            mostrarDialogo("No se pudo iniciar como Invitado");
-                        }
-
-                    }
-                });
     }
 
 

@@ -136,6 +136,17 @@ public class PantallaPrincipalActiv extends AppCompatActivity
     }
 
 
+    private boolean esUsuario(){
+        Boolean esUsuario = false;
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            if (user.getEmail() == "invitado@hotmail.com"){
+                esUsuario = true;
+            }
+        }
+        return esUsuario;
+    }
+
     private void setText(final TextView text,final String value){
         runOnUiThread(new Runnable() {
             @Override
