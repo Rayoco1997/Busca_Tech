@@ -72,32 +72,6 @@ public class MiPerfilActiv extends AppCompatActivity {
     }
 
 
-    /*
-    private void mostrarDatos() {
-        // String yourFilePath = getApplicationContext().getFilesDir() + "/" + "DatosUsuario";
-        // File yourFile = new File( yourFilePath );
-        StringBuilder sb = new StringBuilder();
-        try {
-            FileInputStream fis = null;
-            fis = getApplicationContext().openFileInput("DatosUsuario");
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // String correo = yourFile.toString();
-        String correo = sb.toString();
-        Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
-        new BDUsuario(correo).execute();
-    }
-    */
-
-
     public void cambiarAPantallaCambioContrasena(View v){
         Intent intCambioContrasena= new Intent(this, CambiarContrasenaActiv.class);
         startActivity(intCambioContrasena);

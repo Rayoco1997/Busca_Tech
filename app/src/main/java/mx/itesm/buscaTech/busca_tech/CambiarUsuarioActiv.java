@@ -1,15 +1,16 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,6 +51,21 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
 
     }
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
+    }
+
 
     public void cambiarNombre(View v) {
         String nombre = etUsuarioNuevo.getText().toString();
@@ -69,13 +85,11 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(), "Se guardó el nombre de usuario correctamente.", Toast.LENGTH_LONG).show();
+                                    mostrarDialogo("Se guardó el nombre de usuario correctamente.");
                                     finish();
-
                                 }else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "No se guardó el nombre de usuario.", Toast.LENGTH_LONG).show();
-
+                                    mostrarDialogo("No se guardó el nombre de usuario.");
                                 }
                             }
                         });
@@ -83,73 +97,5 @@ public class CambiarUsuarioActiv extends AppCompatActivity {
         }
 
     }
-
-
-    /*
-    public void cambiarNombre(View v) {
-        // String yourFilePath = getApplicationContext().getFilesDir() + "/" + "DatosUsuario";
-        // File yourFile = new File( yourFilePath );
-        StringBuilder sb = new StringBuilder();
-        try {
-            FileInputStream fis = null;
-            fis = getApplicationContext().openFileInput("DatosUsuario");
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // String correo = yourFile.toString();
-        String correo = sb.toString();
-        Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
-        if(etUsuarioNuevo.getText().toString().equals("")){
-            etUsuarioNuevo.setError("El campo no puede estar vacío.");
-        }else {
-            new BDUsuario(correo, etUsuarioNuevo.getText().toString()).execute();
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-
-            }
-            if (correcto) {
-                Toast.makeText(this, "Se cambió el nombre de usuario correctamente.", Toast.LENGTH_SHORT).show();
-                //Intent intCambioUsuContra = new Intent(this, MiPerfilActiv.class);
-                //startActivity(intCambioUsuContra);
-                finish();
-            } else {
-                Toast.makeText(this, "No se pudo cambiar el nombre de usuario, intente nuevamente.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-
-    private class BDUsuario extends AsyncTask<Void, Void, Void> {
-        String correo;
-        String nombreUsuario;
-        public BDUsuario(String correo, String nombreUsuario){
-            this.correo = correo;
-            this.nombreUsuario = nombreUsuario;
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            cambiarUsuarioBD(correo, nombreUsuario);
-            return null;
-        }
-
-    }
-
-
-    public void cambiarUsuarioBD(String correo, String nombreUsuario){
-        Usuario usuario = new Usuario();
-        UsuarioBD bd = UsuarioBD.getInstance(this);
-        bd.usuarioDAO().actualizarNombreUsuario(nombreUsuario, correo);
-        correcto=true;
-    }
-    */
-
 
 }

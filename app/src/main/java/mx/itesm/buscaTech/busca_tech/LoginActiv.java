@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,15 +43,12 @@ public class LoginActiv extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         etCorreo = findViewById(R.id.etCorreoLogin);
         etContrasena = findViewById(R.id.etContrasenaLogin);
-        File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
+        /*File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
         if(file.exists()){
             Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
             startActivity(intPantallaPrincipal);
             finish();
-        }
-        else{
-            //Nada GEGE
-        }
+        }*/
     }
 
     @Override
@@ -98,7 +94,6 @@ public class LoginActiv extends AppCompatActivity {
                             mostrarDialogo("No se pudo iniciar como Invitado");
                         }
 
-                        // ...
                     }
                 });
     }
@@ -130,7 +125,7 @@ public class LoginActiv extends AppCompatActivity {
                         startActivity(intPantallaPrincipal);
                         finish();
                     }else{
-                        Toast.makeText(getApplicationContext(), "No se pudo ingresar.", Toast.LENGTH_SHORT).show();
+                        mostrarDialogo("No se pudo ingresar.");
                         progressDialog.dismiss();
                     }
                 }
@@ -145,7 +140,7 @@ public class LoginActiv extends AppCompatActivity {
 
     private void mostrarDialogo(String mensaje) {
         AlertDialog.Builder builder= new AlertDialog.Builder(this);
-        builder.setTitle("AVISO");
+        builder.setTitle("ERROR");
         builder.setMessage(mensaje);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -158,79 +153,4 @@ public class LoginActiv extends AppCompatActivity {
 
     }
 
-    /*
-    public void iniciarSesion(View v){
-        String correo = etCorreo.getText().toString().toLowerCase();
-        String contrasena = etContrasena.getText().toString();
-        if(correo.equals("")){
-            etCorreo.setError("El campo no puede estar vacío.");
-        }else if(contrasena.equals("")){
-            etContrasena.setError("El campo no puede estar vacío.");
-        }else if (!correo.equals("") &&!contrasena.equals("")){
-            new BDUsuario(correo, contrasena).execute();
-            try {
-                Thread.sleep(1000);
-            }catch (Exception e){
-
-            }
-            if (coincide){
-                Toast.makeText(this, "Bienvenido "+correo, Toast.LENGTH_SHORT).show();
-                Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
-                startActivity(intPantallaPrincipal);
-                finish();
-            }else {
-                Toast.makeText(this, "La contraseña y/o correo son incorrectos", Toast.LENGTH_LONG).show();
-            }
-        }else {
-            Toast.makeText(this, "Introduce tu correo y contraseña", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    public void verificarInicio(String correo, String contrasena){
-        try {
-            Usuario usuario = new Usuario();
-            UsuarioBD bd = UsuarioBD.getInstance(this);
-            usuario = bd.usuarioDAO().buscarPorCorreo(correo);
-            Log.i("Verificar Usuario", "Se obtuvo el correo");
-            String contrasenaReal = usuario.getContrasena();
-            if (contrasena.equals(contrasenaReal)){
-                coincide = true;
-                String filename = "DatosUsuario";
-                String string = usuario.getCorreo()+"";
-                FileOutputStream outputStream;
-                try {
-                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                    outputStream.write(string.getBytes());
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else {
-                coincide = false;
-            }
-        }catch (Exception e){
-            Log.i("Verificar Usuario", "No se pudo reconocer ese correo");
-        }
-    }
-
-
-
-    private class BDUsuario extends AsyncTask<Void, Void, Void> {
-        String correo;
-        String contrasena;
-        public BDUsuario(String correo, String contrasena){
-            this.correo = correo;
-            this.contrasena = contrasena;
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            verificarInicio(correo, contrasena);
-            return null;
-        }
-
-    }
-
-
-    */
 }

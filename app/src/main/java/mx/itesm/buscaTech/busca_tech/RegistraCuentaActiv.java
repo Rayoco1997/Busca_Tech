@@ -1,9 +1,11 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,7 +14,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,6 +62,20 @@ public class RegistraCuentaActiv extends AppCompatActivity {
         finish();
     }
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
+    }
 
     public void registrarUsuario(View v) {
         final String nombreUsuario = etNombreUsuario.getText().toString().trim();
@@ -68,9 +83,16 @@ public class RegistraCuentaActiv extends AppCompatActivity {
         String contrasena1 = etContrasena1.getText().toString().trim();
         String contrasena2 = etContrasena2.getText().toString().trim();
 
-        if (correo.contains(" ") || contrasena1.contains(" ") || contrasena2.contains(" ")){
-            Toast.makeText(getApplicationContext(), "El correo y/o contraseña no pueden contener espacios en blanco.", Toast.LENGTH_LONG).show();
+        if (correo.contains(" ")){
+            etCorreo.setError( "El correo y/o contraseña no pueden contener espacios en blanco.");
+            etCorreo.requestFocus();
 
+        }else if(contrasena1.contains(" ")){
+            etContrasena1.setError("La contraseña no puede tener espacios");
+            etContrasena1.requestFocus();
+        }else if(contrasena2.contains(" ")){
+            etContrasena2.setError("La contraseña no puede tener espacios");
+            etContrasena2.requestFocus();
         }else if (nombreUsuario.equals("")){
             etNombreUsuario.setError("El campo no puede estar vacío.");
             etNombreUsuario.requestFocus();
@@ -115,16 +137,16 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Se registró el usuario correctamente.", Toast.LENGTH_SHORT).show();
+                                mostrarDialogo( "Se registró el usuario correctamente.");
                                 guardarNombreUsuario(nombreUsuario);
                                 Intent intLogin= new Intent(getApplicationContext(), LoginActiv.class);
                                 startActivity(intLogin);
                                 finish();
                             }else {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException){
-                                    Toast.makeText(getApplicationContext(), "Este correo ya está registrado.", Toast.LENGTH_SHORT).show();
+                                    mostrarDialogo("Este correo ya está registrado.");
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "No se pudo registrar el usuario.", Toast.LENGTH_SHORT).show();
+                                    mostrarDialogo("No se pudo registrar el usuario.");
                                     Log.e("ERROR", "onComplete: Failed=" + task.getException().getMessage());
                                 }
                                 progressDialog.dismiss();
@@ -141,7 +163,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                 */
             }// En caso de que la constraseña no sea igual
             else {
-                Toast.makeText(this, "La constraseña no coincide...", Toast.LENGTH_LONG).show();
+                mostrarDialogo("La constraseña no coincide...");
             }
 
     }
@@ -158,9 +180,9 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Se guardó el nombre de usuario correctamente.", Toast.LENGTH_LONG).show();
+                                mostrarDialogo( "Se guardó el nombre de usuario correctamente.");
                             }else {
-                                Toast.makeText(getApplicationContext(), "No se guardó el nombre de usuario.", Toast.LENGTH_LONG).show();
+                                mostrarDialogo("No se guardó el nombre de usuario.");
                             }
                         }
                     });

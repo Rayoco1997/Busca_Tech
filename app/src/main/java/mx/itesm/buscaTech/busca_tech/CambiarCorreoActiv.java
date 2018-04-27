@@ -1,15 +1,16 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +57,20 @@ public class CambiarCorreoActiv extends AppCompatActivity {
 
     }
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
+    }
 
     public void cambiarCorreo(View v) {
 
@@ -93,12 +108,12 @@ public class CambiarCorreoActiv extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(), "Se cambió el correo.", Toast.LENGTH_LONG).show();
+                                    mostrarDialogo( "Se cambió el correo.");
                                     finish();
 
                                 } else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "No se cambió el correo.", Toast.LENGTH_LONG).show();
+                                    mostrarDialogo("No se cambió el correo.");
                                     Log.i("Cambiar correo", task.getException().getMessage());
 
                                 }

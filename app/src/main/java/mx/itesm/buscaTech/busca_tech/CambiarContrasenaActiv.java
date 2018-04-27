@@ -1,15 +1,16 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +53,21 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
 
     }
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
+    }
+
 
     public void cambiarContrasena(View v){
 
@@ -91,7 +107,7 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
 
         }
         else if (!contrasenaNueva1.equals(contrasenaNueva2)){
-            Toast.makeText(getApplicationContext(), "La contraseña nueva no coincide.", Toast.LENGTH_LONG).show();
+            mostrarDialogo("La contraseña nueva no coincide.");
 
         }
         else {
@@ -105,12 +121,12 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(), "Se cambió la contraseña.", Toast.LENGTH_LONG).show();
+                                    mostrarDialogo("Se cambió la contraseña.");
                                     finish();
 
                                 } else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "No se cambió la contraseña.", Toast.LENGTH_LONG).show();
+                                    mostrarDialogo("No se cambió la contraseña.");
                                     Log.i("Cambiar contraseña", task.getException().getMessage());
 
                                 }
@@ -127,87 +143,6 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
             });
         }
     }
-
-
-    /*
-    public void cambiarContrasena(View v) {
-        if(etContrasenaNueva1.getText().toString().equals("")){
-            etContrasenaNueva1.setError("El campo no puede estar vacío.");
-        }else if(etContrasenaNueva2.getText().toString().equals("")){
-            etContrasenaNueva2.setError("El campo no puede estar vacío.");
-        }else if(etContrasenaAntigua.getText().toString().equals("")){
-            etContrasenaAntigua.setError("El campo no puede estar vacío.");
-        }
-        else if (etContrasenaNueva1.getText().toString().equals(etContrasenaNueva2.getText().toString()) && !etContrasenaAntigua.getText().toString().equals("")){
-            StringBuilder sb = new StringBuilder();
-            try {
-                FileInputStream fis = null;
-                fis = getApplicationContext().openFileInput("DatosUsuario");
-                InputStreamReader isr = new InputStreamReader(fis);
-                BufferedReader bufferedReader = new BufferedReader(isr);
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // String correo = yourFile.toString();
-            String correo = sb.toString();
-            Log.i("Datos", "Los datos que tiene el archivo son "+ correo);
-            new BDUsuario(correo, etContrasenaAntigua.getText().toString(), etContrasenaNueva1.getText().toString()).execute();
-            try {
-                Thread.sleep(1000);
-            }catch (Exception e){
-
-            }
-            if(correcto){
-                Toast.makeText(this, "Se actualizó la contraseña correctamente.", Toast.LENGTH_SHORT).show();
-                //Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-                //startActivity(intCambioUsuContra);
-                finish();
-            }else{
-                Toast.makeText(this, "Hubo un error al actualizar la contraseña, intente de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(this, "Las contraseñas nuevas no son iguales.", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    private class BDUsuario extends AsyncTask<Void, Void, Void> {
-        String correo;
-        String contresenaAntigua;
-        String contrasenaNueva;
-        public BDUsuario(String correo, String contrasenaAntigua, String contrasenaNueva){
-            this.correo = correo;
-            this.contresenaAntigua = contrasenaAntigua;
-            this.contrasenaNueva = contrasenaNueva;
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            cambiarContrasenaBD(correo, contresenaAntigua, contrasenaNueva);
-            return null;
-        }
-
-    }
-
-    public void cambiarContrasenaBD(String correo, String contrasenaAntigua, String contrasenaNueva){
-        Usuario usuario = new Usuario();
-        UsuarioBD bd = UsuarioBD.getInstance(this);
-        usuario = bd.usuarioDAO().buscarPorCorreo(correo);
-        if (usuario.getContrasena().equals(contrasenaAntigua)){
-            correcto=true;
-            bd.usuarioDAO().actualizarContrasena(contrasenaNueva, correo);
-            //Intent intCambioUsuContra= new Intent(this, MiPerfilActiv.class);
-            //startActivity(intCambioUsuContra);
-        }else {
-            Log.i("Cambiar Contraseña BD", "La contraseña antigua no era igual a la BD");
-            correcto=false;
-        }
-    }
-    */
 
 
 }
