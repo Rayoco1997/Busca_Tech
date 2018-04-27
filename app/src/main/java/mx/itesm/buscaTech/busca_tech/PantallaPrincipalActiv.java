@@ -1,9 +1,11 @@
 package mx.itesm.buscaTech.busca_tech;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +35,12 @@ public class PantallaPrincipalActiv extends AppCompatActivity
     TextView tvNavCorreo;
     FirebaseAuth mAuth;
 
+    Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.setTitle(R.string.strBuscaTech);
         setContentView(R.layout.activity_pantalla_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,6 +68,8 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         tvNavNombre = (TextView) headerView.findViewById(R.id.tvNavNombre);
         tvNavCorreo = (TextView) headerView.findViewById(R.id.tvNavCorreo);
 
+        menu = navigationView.getMenu();
+        Log.i("AVISO", "entre al on create de pantalla principal");
         cargaInformacionUsuario();
         /*
         File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
@@ -81,6 +89,35 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutProductos,fragLista);
         transaction.commit();
+
+        cambiarBotonesSiEsInvitado(menu);
+
+    }
+
+
+
+    private void cambiarBotonesSiEsInvitado(Menu menu) {
+        if(!esUsuario()) {
+            MenuItem menuItemFavoritos = menu.findItem(R.id.nav_Preferencias).setEnabled(false);
+            MenuItem menuItemSugerirTienda = menu.findItem(R.id.nav_SugerirTienda).setEnabled(false);
+            MenuItem menuItemMiPerfil = menu.findItem(R.id.nav_MiPerfil).setEnabled(false);
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Si desea tener acceso a las demás funcionalidades, inicie sesión como usuario");
+            builder1.setCancelable(false);
+
+            builder1.setPositiveButton(
+                    "Aceptar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
     }
 
 
@@ -137,11 +174,12 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
 
     private boolean esUsuario(){
-        Boolean esUsuario = false;
+        Boolean esUsuario = true;
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            if (user.getEmail() == "invitado@hotmail.com"){
-                esUsuario = true;
+            if (user.getEmail().equals("invitado@hotmail.com")){
+                Log.i("SUPER MEGA AVISO", "SOY UN INVITADO CHIDO");
+                esUsuario = false;
             }
         }
         return esUsuario;
@@ -166,14 +204,14 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.pantalla_principal, menu);
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -186,7 +224,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -203,8 +241,9 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             mAuth.signOut();
             Toast.makeText(this, "Sesión cerrada correectamente.", Toast.LENGTH_SHORT).show();
             Intent intLogin= new Intent(this,LoginActiv.class);
-            startActivity(intLogin);
             finish();
+            startActivity(intLogin);
+
 
         } else if (id == R.id.nav_BuscarProducto) {
             Intent intBuscarProducto=new Intent(this, BuscarProductoActiv.class);
