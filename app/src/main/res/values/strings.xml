@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Busca_Tech</string>
-    <string name="strBusca">BUSCA</string>
+    <string name="app_name">Busca Tech</string>
+    <string name="strBusca">Busca</string>
     <string name="strIngresaInvitado">Ingresa como invitado</string>
     <string name="strO">------O------</string>
     <string name="strNoTienesCuenta">¿No tienes una cuenta? Registrate</string>
@@ -16,13 +16,13 @@
     <string name="strBuscarProducto">Buscar producto</string>
 
     <!--TEXTOS PARA LOS TITULOS DE LAS ACTIVIDADES-->
-    <string name="strBienvenido">¡BIENVENIDO!</string>
-    <string name="strNovedades">NOVEDADES</string>
-    <string name="strSugerencias">SUGERENCIAS</string>
-    <string name="strBuscaTuProducto">BUSCA TU PRODUCTO</string>
-    <string name="strMisPreferencias">MIS PREFERENCIAS</string>
-    <string name="strCreaTuCuenta">CREA TU CUENTA</string>
-    <string name="strBuscaTech">BUSCA TECH</string>
+    <string name="strBienvenido">¡Bienvenido!</string>
+    <string name="strNovedades">Novedades</string>
+    <string name="strSugerencias">Sugerencias</string>
+    <string name="strBuscaTuProducto">Busca tu producto</string>
+    <string name="strMisPreferencias">Mis Favoritos</string>
+    <string name="strCreaTuCuenta">Crea tu cuenta</string>
+    <string name="strBuscaTech">Busca Tech</string>
     <string name="strSugiereTienda">Sugerir una tienda</string>
     <string name="strNombreTienda">Nombre de la tienda</string>
     <string name="strDireccion">Dirección</string>
@@ -44,7 +44,7 @@
     <string name="strNuevaContrasena">Nueva contraseña</string>
     <string name="strVeriContrasenaNueva">Verifica contraseña nueva</string>
     <string name="strMiPerfil">Mi perfil</string>
-    <string name="strConfiguración">CONFIGURACION</string>
+    <string name="strConfiguración">Configuración</string>
     <string name="strTituloBusquedaAv">Buscar producto</string>
     <string name="strTvDispositivo">Dispositivo:</string>
     <string name="strTvPantalla">Pantalla:</string>
@@ -53,9 +53,9 @@
     <string name="strTvProcesador">Procesador:</string>
     <string name="strTvPrecio">Precio:</string>
     <string name="strBtnBuscarAv">Buscar</string>
-    <string name="strBusquedaAv">Busqueda Avanzada</string>
-    <string name="strBusquedaAvMayusculas">BUSQUEDA AVANZADA</string>
-
+    <string name="strBusquedaAv">Búsqueda Avanzada</string>
+    <string name="strBusquedaAvMayusculas">Búsqueda Avanzada</string>
+    <string name="strRestaurarContrasena">Restaurar Contraseña</string>
 
     <string-array name="valoresCategoriaTienda">
         <item>Cómputo</item>

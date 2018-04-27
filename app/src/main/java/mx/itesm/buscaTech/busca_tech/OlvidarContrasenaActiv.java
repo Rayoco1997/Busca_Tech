@@ -23,7 +23,8 @@ public class OlvidarContrasenaActiv extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_olvidar_contrasena);
-        this.setTitle("Restaurar contraseña");
+        this.setTitle(R.string.strRestaurarContrasena);
+
         mAuth = FirebaseAuth.getInstance();
         etCorreoParaContra = findViewById(R.id.etCorreoParaContra);
     }
