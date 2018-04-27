@@ -1,7 +1,10 @@
 package mx.itesm.buscaTech.busca_tech;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -17,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,6 +81,31 @@ public class LoginActiv extends AppCompatActivity {
         startActivity(intMandarABusqueda);
     }
 
+    public void iniciarAnonimo(View v){
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intPantallaPrincipal= new Intent(getApplicationContext(), PantallaPrincipalActiv.class);
+                            startActivity(intPantallaPrincipal);
+                            finish();
+
+                        } else {
+                            mostrarDialogo("No se pudo iniciar como Invitado");
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+
+
+
     public void iniciarSesionFire(View v){
         final String correo = etCorreo.getText().toString();
         String contrasena = etContrasena.getText().toString();
@@ -114,7 +143,22 @@ public class LoginActiv extends AppCompatActivity {
         startActivity(intOlvidarC);
     }
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
 
+    }
+
+    /*
     public void iniciarSesion(View v){
         String correo = etCorreo.getText().toString().toLowerCase();
         String contrasena = etContrasena.getText().toString();
@@ -186,4 +230,7 @@ public class LoginActiv extends AppCompatActivity {
         }
 
     }
+
+
+    */
 }
