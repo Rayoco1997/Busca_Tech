@@ -80,7 +80,7 @@ public class LoginActiv extends AppCompatActivity {
     public void iniciarAnonimo(View v){
         progressDialog.setMessage("Iniciando sesión como invitado...");
         progressDialog.show();
-        mAuth.signInWithEmailAndPassword("invitado@hotmail.com", "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword("buscatechoficial@gmail.com", "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

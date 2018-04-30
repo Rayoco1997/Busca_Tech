@@ -151,14 +151,16 @@ public class PantallaPrincipalActiv extends AppCompatActivity
 
     private void cargaInformacionUsuario(){
         FirebaseUser user = mAuth.getCurrentUser();
-        String nombre = "A";
-        String correo = "A";
+        String nombre = "Invitado";
+        String correo = "";
         if (user != null){
             if (user.getDisplayName() != null){
                 nombre = user.getDisplayName();
             }
             if (user.getEmail() != null){
-                correo = user.getEmail();
+                if (!user.getEmail().equals("buscatechoficial@gmail.com")){
+                    correo = user.getEmail();
+                }
             }
         }
         // El usuario ingresó como invitado
@@ -177,7 +179,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         Boolean esUsuario = true;
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            if (user.getEmail().equals("invitado@hotmail.com")){
+            if (user.getEmail().equals("buscatechoficial@gmail.com")){
                 Log.i("SUPER MEGA AVISO", "SOY UN INVITADO CHIDO");
                 esUsuario = false;
             }
