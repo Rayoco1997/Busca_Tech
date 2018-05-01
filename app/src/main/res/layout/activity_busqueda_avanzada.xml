@@ -70,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/strTvPantalla"
                 android:textSize="18sp" />
 
             <TextView
@@ -79,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/strTvMemoriaRam"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -92,24 +90,22 @@
 
             <Spinner
                 android:id="@+id/spDispositivo"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:entries="@array/Dispositivo" />
+                tools:clickable="false" />
 
             <Spinner
                 android:id="@+id/spAttr2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:entries="@array/Pantalla" />
+                android:layout_weight="4" />
 
             <Spinner
                 android:id="@+id/spAttr3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:entries="@array/MemoriaRAM" />
+                android:layout_weight="4" />
 
         </LinearLayout>
     </LinearLayout>
