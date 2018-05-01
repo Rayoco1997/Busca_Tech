@@ -10,6 +10,8 @@ public class Preferencias {
     String precio;
     String nombre;
     String tienda;
+    String imagen;
+    String direccion;
 
 
     public Preferencias(){
@@ -17,12 +19,14 @@ public class Preferencias {
     }
 
 
-    public Preferencias(String idPreferencia, String idUsuario, String precio, String nombre, String tienda) {
+    public Preferencias(String idPreferencia, String idUsuario, String precio, String nombre, String tienda, String imagen, String direccion) {
         this.idPreferencia= idPreferencia;
         this.idUsuario = idUsuario;
         this.precio = precio;
         this.nombre = nombre;
         this.tienda = tienda;
+        this.imagen = imagen;
+        this.direccion = direccion;
     }
 
 
@@ -34,9 +38,7 @@ public class Preferencias {
         return idUsuario;
     }
 
-    public String getPrecio() {
-        return precio;
-    }
+    public String getPrecio() {return precio;}
 
     public String getNombre() {
         return nombre;
@@ -45,6 +47,10 @@ public class Preferencias {
     public String getTienda() {
         return tienda;
     }
+
+    public String getDireccion() {return direccion;}
+
+    public String getImagen() {return imagen;}
 
     @Override
     public String toString() {
