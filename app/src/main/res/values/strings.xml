@@ -113,5 +113,6 @@
     <string name="strIntroduceCorreo">Introduce el correo asociado a tu cuenta</string>
     <string name="strBtnEnviar">Enviar</string>
     <string name="strBtnRegresar">Regresar</string>
+    <string name="strTituloMisFavoritos">Mis favoritos</string>
 
 </resources>

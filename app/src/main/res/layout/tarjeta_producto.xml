@@ -48,5 +48,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivImgProd"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreProd" />
+
+        <TextView
+            android:id="@+id/tvTiendaProd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivImgProd" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
