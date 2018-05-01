@@ -126,7 +126,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         break;
                 }
                 busqueda+=seleccion+" ";
-                Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -173,7 +173,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         break;
                 }
                 busqueda+=seleccion+" ";
-                Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -191,7 +191,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                 //spAttr2.setClickable(false);
                 //spAttr3.setAdapter(spAttr3Adapter);
                 busqueda+=seleccion+" ";
-                Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -212,6 +212,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
             Intent intent = new Intent(this, BuscarProductoActiv.class);
             intent.putExtra("busqueda", busqueda);
             startActivity(intent);
+
         }
     }
 
