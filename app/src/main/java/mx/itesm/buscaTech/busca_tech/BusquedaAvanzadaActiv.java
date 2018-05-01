@@ -37,8 +37,6 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
 
 
 
-
-
     }
 
 
