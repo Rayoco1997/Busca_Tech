@@ -137,7 +137,8 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                mostrarDialogo( "Se registró el usuario correctamente.");
+                                progressDialog.dismiss();
+                                // mostrarDialogo( "Se registró el usuario correctamente.");
                                 guardarNombreUsuario(nombreUsuario);
                                 Intent intLogin= new Intent(getApplicationContext(), LoginActiv.class);
                                 startActivity(intLogin);
@@ -180,7 +181,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                mostrarDialogo( "Se guardó el nombre de usuario correctamente.");
+                                // mostrarDialogo( "Se guardó el nombre de usuario correctamente.");
                             }else {
                                 mostrarDialogo("No se guardó el nombre de usuario.");
                             }
