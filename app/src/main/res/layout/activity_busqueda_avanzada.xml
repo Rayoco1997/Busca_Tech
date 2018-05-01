@@ -50,6 +50,7 @@
         app:layout_constraintVertical_bias="0.06999999">
 
         <LinearLayout
+            android:id="@+id/layoutTitulos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -64,7 +65,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tvPantalla"
+                android:id="@+id/tvAttr2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -73,7 +74,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tvMemoriaRam"
+                android:id="@+id/tvAttr3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -81,36 +82,10 @@
                 android:text="@string/strTvMemoriaRam"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tvMemoria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/strTvMemoriaSecundaria"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvProcesador"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/strTvProcesador"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvPrecio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/strTvPrecio"
-                android:textSize="18sp" />
-
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutSpinners"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -123,39 +98,18 @@
                 android:entries="@array/Dispositivo" />
 
             <Spinner
-                android:id="@+id/spPantalla"
+                android:id="@+id/spAttr2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:entries="@array/Pantalla" />
 
             <Spinner
-                android:id="@+id/spMemoriaRam"
+                android:id="@+id/spAttr3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:entries="@array/MemoriaRAM" />
-
-            <Spinner
-                android:id="@+id/spMemoriaSecundaria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:entries="@array/MemoriaSecundaria" />
-
-            <Spinner
-                android:id="@+id/spProcesadorLaptop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:entries="@array/Procesador" />
-
-            <Spinner
-                android:id="@+id/spPrecioLaptop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:entries="@array/Precio" />
 
         </LinearLayout>
     </LinearLayout>
