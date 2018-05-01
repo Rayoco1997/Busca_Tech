@@ -2,15 +2,12 @@ package mx.itesm.buscaTech.busca_tech;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +36,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         crearMatriz();
         // progressDialog
         // agregarPreferencia();
-        obtenerFav();
+        obtenerFavoritos();
 
         // crearLista(matriz[0], matriz[1], matriz[2], matriz[3], matriz[4]);
         Log.i("Tamaño", matriz.get(0).size() + "");
@@ -119,7 +116,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
     }
 
-    private void obtenerFav() {
+    private void obtenerFavoritos() {
         databasePreferences.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,39 +155,6 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                     "\n" + matriz.get(3).get(i) +
                     "\n" + matriz.get(4).get(i));
         }
-        // crearLista(matriz.get(0), matriz.get(1), matriz.get(2), matriz.get(3), matriz.get(4));
-
-    }
-
-
-
-    private void obtenerFavoritos(){
-        databasePreferences.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
-                    Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
-                    if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
-                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion);
-                        Log.i("DATOS", preferencias.toString());
-                        Log.i("Length", matriz.size() + "");
-                        for (int i = 0; i < matriz.size(); i++){
-                            Log.i("Lista", matriz.get(i).get(0) +
-                                    "\n" + matriz.get(i).get(1) +
-                                    "\n" + matriz.get(i).get(2) +
-                                    "\n" + matriz.get(i).get(3) +
-                                    "\n" + matriz.get(i).get(4));
-                        }
-                    }
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -229,6 +193,31 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         matriz.add(imagen);
         matriz.add(direccion);
 
+    }
+
+
+    public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
+
+        String idUsuario = mAuth.getCurrentUser().getUid();
+        String idPreferencia = databasePreferences.push().getKey();
+
+        if (idUsuario != "uNSCzUet0ZaCprSZrs2wXfDhnX22"){
+            // No es invitado, no está en la cuenta de buscatechoficial
+            Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda, imagen, direccion);
+            databasePreferences.child(idPreferencia).setValue(preferencias);
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG);
+
+        }
+
+    }
+
+
+    public void eliminarFavorito(String idPreferencia) {
+        databasePreferences.child(idPreferencia).removeValue();
+        obtenerFavoritos();
     }
 
 
