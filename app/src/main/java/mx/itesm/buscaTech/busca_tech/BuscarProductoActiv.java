@@ -35,6 +35,14 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
         progressDialog= new ProgressDialog(this);
 
+        Intent intent = getIntent();
+        String busquedaAvz = intent.getStringExtra("busqueda");
+
+        if(busquedaAvz!=null){
+            buscarProducto(this.findViewById(android.R.id.content));
+            //Log.i("BUSQUEDA AVANZA: ",busquedaAvz);
+
+        }
     }
 
     public void mandarABusquedaAvanzada(View v){
@@ -61,15 +69,25 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
-
                     //progressDialog.dismiss();
-
-
                     //FIN DEL METODO
 
+                    //Llamar al algoritmo de búsqueda
+                    Intent intent = getIntent();
+                    String busquedaAvz=intent.getStringExtra("busqueda");
+                    String url;
 
 
-                    String url= tiBuscarProducto.getText().toString();
+
+                    //Captura de texto desde el text field para buscar
+                    if(busquedaAvz.equals("")) {
+                        url = tiBuscarProducto.getText().toString();
+
+                    }else{
+                        url = busquedaAvz;
+                    }
+
+
                     String busqueda = URLEncoder.encode(url, "utf-8");
                     Document doc= Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q="+busqueda).get();
                     Elements resultados = doc.select("div.sh-dlr__list-result");
@@ -100,7 +118,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         Element child = element.child(0);
                         nombreProductos.add(child.attr("alt"));
                         //nombreProductos[count]= child.attr("alt");
-                        Log.i("Nombre",child.attr("alt"));
+                        //Log.i("Nombre",child.attr("alt"));
 
                         //System.out.println("Nombre: "+child.attr("alt"));
 
@@ -109,14 +127,14 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                         precio.add(element1.text());
                         //precio[count]= element1.text();
-                        Log.i("Precio",element1.text());
+                        //Log.i("Precio",element1.text());
                         //System.out.println("Precio: "+element1.text());
                         Elements lugar = elemento.select("div.mQ35Be");
                         Element primerLugar = lugar.first();
                         Element childLugar = primerLugar.child(0);
                         String lug = childLugar.text();
                         lug = lug.replace(element1.text()+" en ","");
-                        Log.i("Lugar", lug);
+                        //Log.i("Lugar", lug);
                         if (lug.contains("tiendas")){
                             nombreProductos.remove(count);
                             precio.remove(count);

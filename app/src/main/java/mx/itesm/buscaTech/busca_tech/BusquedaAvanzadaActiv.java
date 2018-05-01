@@ -1,8 +1,11 @@
 package mx.itesm.buscaTech.busca_tech;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +21,7 @@ import java.util.Arrays;
 
 public class BusquedaAvanzadaActiv extends AppCompatActivity {
 
-    String busqueda;
+    String busqueda= " ";
 
     ArrayList<String> DispositivoSpinner = new ArrayList<String>(
             Arrays.asList("","Computadora", "Tablet", "Celular"));
@@ -179,13 +182,52 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
             }
         });
 
+        spAttr3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String seleccion;
+                seleccion = parent.getItemAtPosition(position).toString();
+                //spAttr2.setEnabled(false);
+                //spAttr2.setClickable(false);
+                //spAttr3.setAdapter(spAttr3Adapter);
+                busqueda+=seleccion+" ";
+                Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
     public void buscar(View v){
-        Intent intent = new Intent(this, BuscarProductoActiv.class);
-        intent.putExtra("busqueda", busqueda);
-        startActivity(intent);
+        Log.i("busqueda vacia", busqueda);
+        if(busqueda.equals("   ") || busqueda.equals("  ")){
+            Log.i("ALERTA ROJA","ANTRE UNO ANTES DEL DIALOGO");
+            mostrarDialogo("Elige un dispositivo.");
+        }else {
+            Intent intent = new Intent(this, BuscarProductoActiv.class);
+            intent.putExtra("busqueda", busqueda);
+            startActivity(intent);
+        }
+    }
+
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("ERROR");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
     }
 
 
