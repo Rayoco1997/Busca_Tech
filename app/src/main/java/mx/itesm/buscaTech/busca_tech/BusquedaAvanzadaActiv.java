@@ -38,7 +38,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
             Arrays.asList("","Android", "iOS"));
 
     ArrayList<String> TamagnoSpinner = new ArrayList<String>(
-            Arrays.asList("","7\"+","8\"+","9\"+", "10\"+"));
+            Arrays.asList("","7\"","8\"","9\"", "10\""));
 
 
     ArrayList<String> CelularSpinner = new ArrayList<String>(
@@ -87,15 +87,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         spAttr2Adapter.clear();
                         spAttr2Adapter.addAll(ComputadoraSpinner);
                         spAttr2.setVisibility(View.VISIBLE);
-
-                        /*
-                        //Configuración del atributo 3
-                        tvAttr3.setText("Categoría: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(CategoriaSpinner);
-                        spAttr3.setVisibility(View.VISIBLE);
-                        */
-
+                        busqueda+=seleccion+" ";
                         break;
 
                     case "Tablet":
@@ -104,14 +96,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         spAttr2Adapter.clear();
                         spAttr2Adapter.addAll(TabletSpinner);
                         spAttr2.setVisibility(View.VISIBLE);
-
-                        /*
-                        //atributo 3
-                        tvAttr3.setText("Tamaño: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(ComputadoraSpinner);
-                        spAttr3.setVisibility(View.VISIBLE);
-                        */
+                        busqueda+=seleccion+" ";
                         break;
 
                     case "Celular":
@@ -120,13 +105,13 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         spAttr2Adapter.clear();
                         spAttr2Adapter.addAll(CelularSpinner);
                         spAttr2.setVisibility(View.VISIBLE);
+                        busqueda+=seleccion+" ";
                         break;
 
                     default:
                         break;
                 }
-                busqueda+=seleccion+" ";
-                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -150,30 +135,38 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         spAttr3Adapter.clear();
                         spAttr3Adapter.addAll(CategoriaSpinner);
                         spAttr3.setVisibility(View.VISIBLE);
+                        busqueda+=seleccion+" ";
                         break;
                     case "De Escritorio":
                         tvAttr3.setText("Categoría: ");
                         spAttr3Adapter.clear();
                         spAttr3Adapter.addAll(CategoriaSpinner);
                         spAttr3.setVisibility(View.VISIBLE);
+                        busqueda+="Desktop ";
                         break;
                     case "Android":
                         tvAttr3.setText("Tamaño: ");
                         spAttr3Adapter.clear();
                         spAttr3Adapter.addAll(TamagnoSpinner);
                         spAttr3.setVisibility(View.VISIBLE);
+                        busqueda+=seleccion+" ";
                         break;
                     case "iOS":
-                        tvAttr3.setText("Tamaño: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(TamagnoSpinner);
-                        spAttr3.setVisibility(View.VISIBLE);
+                        busqueda+="iPad ";
+                        break;
+                    case "Gama Alta":
+                        busqueda+="6gb ram 64gb octa core ";
+                        break;
+                    case "Gama Media":
+                        busqueda+="3gb ram 32gb ";
+                        break;
+                    case "Económico":
+                        busqueda+="1gb ram 8gb ";
                         break;
                     default:
                         break;
                 }
-                busqueda+=seleccion+" ";
-                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -185,12 +178,28 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
         spAttr3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String seleccion;
-                seleccion = parent.getItemAtPosition(position).toString();
+                String seleccion=parent.getItemAtPosition(position).toString();
+                switch (seleccion){
+                    case "Programación":
+                        busqueda+="8gb ram 1tb i5";
+                        break;
+                    case "Gaming":
+                        busqueda+="16gb ram 1tb gtx 1050ti i7";
+                        break;
+                    case "Diseño":
+                        busqueda+="8gb ram 1tb i7";
+                        break;
+                    case "Uso General":
+                        busqueda+="4gb ram i3";
+                        break;
+                    default:
+                        busqueda+=seleccion+" ";
+                        break;
+                }
                 //spAttr2.setEnabled(false);
                 //spAttr2.setClickable(false);
                 //spAttr3.setAdapter(spAttr3Adapter);
-                busqueda+=seleccion+" ";
+                //busqueda+=seleccion+" ";
                 //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
             }
 
