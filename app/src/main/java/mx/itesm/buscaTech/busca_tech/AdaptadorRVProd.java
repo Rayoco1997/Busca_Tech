@@ -5,7 +5,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,18 +15,19 @@ import android.widget.TextView;
  * Created by rayoco on 20/02/18.
  */
 
-public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>{
-
+public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista> {
+    private final ClickHandler clickHandler;
     private String[] arrNombreProd;
     private String[] arrPrecioProd;
     private Bitmap[] arrImagenProd;
     private String[] arrTiendaProd;
 
-    public AdaptadorRVProd(String[] nombres, String[] precios, Bitmap[] imagenes, String[] tiendas){
+    public AdaptadorRVProd(String[] nombres, String[] precios, Bitmap[] imagenes, String[] tiendas, final ClickHandler clickHandler){
         arrNombreProd = nombres;
         arrPrecioProd = precios;
         arrImagenProd = imagenes;
         arrTiendaProd = tiendas;
+        this.clickHandler = clickHandler;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         tvPrecioProd.setText(arrPrecioProd[position]);
         ivImgProd.setImageBitmap(arrImagenProd[position]);
         tvTiendaProd.setText(arrTiendaProd[position]);
-
+        holder.clickHandler = this.clickHandler;
     }
 
     @Override
@@ -54,12 +57,23 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         return arrNombreProd.length;
     }
 
-    public class Vista extends RecyclerView.ViewHolder{
+    public class Vista extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final CardView tarjeta;
+        private ClickHandler clickHandler;
 
         public Vista(CardView tarjeta){
             super(tarjeta);
             this.tarjeta = tarjeta;
+            ImageButton myButton = (ImageButton) itemView.findViewById(R.id.imbtnGuardar);
+            myButton.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(final View v) {
+            if (clickHandler != null) {
+                clickHandler.onMyButtonClicked(getAdapterPosition());
+            }
         }
     }
 }

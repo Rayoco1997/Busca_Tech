@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 /**
@@ -54,7 +56,14 @@ public class ListaRVProdFrag extends Fragment {
         String[] tiendas = {"Tienda A", "Tienda B", "Tienda C", "Tienda D" ,"Tienda E"};
         */
 
-        AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos,precio,imagenes, tiendas);
+        AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos, precio, imagenes, tiendas, new ClickHandler() {
+            @Override
+            public void onMyButtonClicked(int position) {
+                Log.i("WALUIGI",position+"");
+                Toast.makeText(getContext(), "ANUMA", Toast.LENGTH_LONG).show();
+
+            }
+        });
         rvProductos.setAdapter(adaptador);
         rvProductos.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
