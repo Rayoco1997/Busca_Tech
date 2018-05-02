@@ -5,7 +5,6 @@ package mx.itesm.buscaTech.busca_tech;
  */
 
 public class Preferencias {
-    String idPreferencia;
     String idUsuario;
     String precio;
     String nombre;
@@ -19,19 +18,13 @@ public class Preferencias {
     }
 
 
-    public Preferencias(String idPreferencia, String idUsuario, String precio, String nombre, String tienda, String imagen, String direccion) {
-        this.idPreferencia= idPreferencia;
+    public Preferencias(String idUsuario, String precio, String nombre, String tienda, String imagen, String direccion) {
         this.idUsuario = idUsuario;
         this.precio = precio;
         this.nombre = nombre;
         this.tienda = tienda;
         this.imagen = imagen;
         this.direccion = direccion;
-    }
-
-
-    public String getIdPreferencia() {
-        return idPreferencia;
     }
 
     public String getIdUsuario() {

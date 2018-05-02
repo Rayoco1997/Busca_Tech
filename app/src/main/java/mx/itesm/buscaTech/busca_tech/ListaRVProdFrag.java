@@ -128,7 +128,7 @@ public class ListaRVProdFrag extends Fragment {
 
         if (!idUsuario.equals("uNSCzUet0ZaCprSZrs2wXfDhnX22")){
             // No es invitado, no está en la cuenta de buscatechoficial
-            Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda, imagen, direccion);
+            Preferencias preferencias = new Preferencias(idUsuario, precio, nombre, tienda, imagen, direccion);
             databasePreferences.child(idPreferencia).setValue(preferencias);
             Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_LONG).show();
 
@@ -155,7 +155,8 @@ public class ListaRVProdFrag extends Fragment {
                 for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
                     Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
                     if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
-                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferencias.idPreferencia);
+                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferenciaSnapshot.getKey());
+                        Log.i("KEY", preferenciaSnapshot.getKey());
                         Log.i("DATOS", preferencias.toString());
                         /*
                         Log.i("DATOS", preferencias.toString());

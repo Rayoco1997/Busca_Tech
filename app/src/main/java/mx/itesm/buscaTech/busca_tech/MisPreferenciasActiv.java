@@ -117,7 +117,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         String direccion = "https://www.google.com/";
 
         String idPreferencia = databasePreferences.push().getKey();
-        Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda, imagen, direccion);
+        Preferencias preferencias = new Preferencias(idUsuario, precio, nombre, tienda, imagen, direccion);
         databasePreferences.child(idPreferencia).setValue(preferencias);
 
     }
@@ -129,7 +129,8 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                 for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
                     Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
                     if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
-                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferencias.idPreferencia);
+                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferenciaSnapshot.getKey());
+                        Log.i("KEY", preferenciaSnapshot.getKey());
                         Log.i("DATOS", preferencias.toString());
                         /*
                         Log.i("DATOS", preferencias.toString());
