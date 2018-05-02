@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -260,10 +265,28 @@ public class ListaRVProdFrag extends Fragment {
         }
 
 
-        Bitmap bm1 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_1);
+        Bitmap bmLogo = BitmapFactory.decodeResource(getResources(),R.drawable.logobuscatech);
+        //bmLogo=redimensionarImagenMaximo(bmLogo,400,400);
         Bitmap[] imagenesBm = new Bitmap[imagenesArr.size()];
+        Bitmap bm;
+        Log.i("LISTA CONT:",imagenes.toString());
         for (int i = 0; i < imagenesArr.size(); i++){
-            imagenesBm[i] = bm1;
+            if(!imagenes[i].equals("Logo")) {
+                try {
+                    URL urlImagen = new URL(imagenes[i]);
+                    HttpURLConnection connection = null;
+                    connection = (HttpURLConnection) urlImagen.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    bm = BitmapFactory.decodeStream(input);
+                    imagenesBm[i]=redimensionarImagenMaximo(bm,400,400);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                imagenesBm[i] = bmLogo;
+            }
         }
 
         ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2, imagenes);
@@ -272,6 +295,21 @@ public class ListaRVProdFrag extends Fragment {
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
     }
+
+    public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
+        //Redimensionamos
+        int width = mBitmap.getWidth();
+        int height = mBitmap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeigth) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
+    }
+
 
 
     private void yaExiste(final String direccion, final String imagen, final String nombre, final String precio, final String tienda) {

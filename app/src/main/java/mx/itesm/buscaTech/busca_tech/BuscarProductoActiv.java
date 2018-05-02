@@ -46,6 +46,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
     //String dirImagen;
     ArrayList<Bitmap> imagenes;
     ArrayList<String> imagenesLink;
+    Bitmap bmLogo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
         tiBuscarProducto = findViewById(R.id.tiBuscarProducto);
 
         progressDialog= new ProgressDialog(this);
+        bmLogo = BitmapFactory.decodeResource(getResources(),R.drawable.logobuscatech);
+
 
         Intent intent = getIntent();
         String busquedaAvz = intent.getStringExtra("busqueda");
@@ -131,7 +135,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     String busquedaImagen;
 
                     for(Element elemento:resultados){
-                        if(j>=3){
+                        if(j>=5){
                             break;
                         }
                         System.out.println("AH NU MA; ELEMENTO CON CLAVE: "+elemento.attr("data-docid"));
@@ -185,7 +189,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                         new DescargaTextoTarea().execute(url1);
                         try {
-                            Thread.sleep(6000);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -405,8 +409,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
                 //Toast.makeText(BuscaLibrosActiv.this, "No se encontró un libro con el ISBN "+ISBN+", o no se encontraron suficientes datos, intenta nuevamente.", Toast.LENGTH_SHORT).show();
                 //BuscaLibrosActiv.this.finish();
                 e.printStackTrace();
-                imagenes.add(null);
-                imagenesLink.add(null);
+                imagenes.add(redimensionarImagenMaximo(bmLogo,400,400));
+                imagenesLink.add("Logo");
                 Log.i("OPEDTT:","Hubo un error al encontrar imagen, añadí un placeholder.");
             }
 
