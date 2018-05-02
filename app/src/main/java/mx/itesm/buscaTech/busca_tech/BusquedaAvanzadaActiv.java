@@ -54,19 +54,26 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
         TextView tvDispositivo = findViewById(R.id.tvDispositivo);
         final TextView tvAttr2 = findViewById(R.id.tvAttr2);
         final TextView tvAttr3 = findViewById(R.id.tvAttr3);
+
         final Spinner spDispositivo = findViewById(R.id.spDispositivo);
         final Spinner spAttr2 = findViewById(R.id.spAttr2);
         final Spinner spAttr3 = findViewById(R.id.spAttr3);
 
-        //Asignar Array al spinner
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DispositivoSpinner);
-        final ArrayAdapter<String> spAttr2Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DispositivoSpinner);
-        final ArrayAdapter<String> spAttr3Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DispositivoSpinner);
+        //Asignar cada array a su adapter
+        final ArrayAdapter<String> dispositivoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DispositivoSpinner);
+        final ArrayAdapter<String> computadoraAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ComputadoraSpinner);
+        final ArrayAdapter<String> categoriaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CategoriaSpinner);
+        final ArrayAdapter<String> tabletAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, TabletSpinner);
+        final ArrayAdapter<String> tamagnoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, TamagnoSpinner);
+        final ArrayAdapter<String> celularAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CelularSpinner);
 
         //Colocar elementos en la clase
         tvDispositivo.setText("Dispositivo: ");
 
-        spDispositivo.setAdapter(adapter);
+        spDispositivo.setAdapter(dispositivoAdapter);
+        spAttr2.setEnabled(false);
+        spAttr3.setEnabled(false);
+
         spAttr2.setVisibility(View.GONE);
         spAttr3.setVisibility(View.GONE);
 
@@ -75,17 +82,18 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
         spDispositivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tvAttr2.setText("");
+                spAttr2.setVisibility(View.GONE);
+                tvAttr3.setText("");
+                spAttr3.setVisibility(View.GONE);
                 String seleccion;
                 seleccion = parent.getItemAtPosition(position).toString();
-                //spDispositivo.setEnabled(false);
-                //spDispositivo.setClickable(false);
-                spAttr2.setAdapter(spAttr2Adapter);
                 switch (seleccion){
                     case "Computadora":
                         //configuración del atributo 2
                         tvAttr2.setText("Tipo: ");
-                        spAttr2Adapter.clear();
-                        spAttr2Adapter.addAll(ComputadoraSpinner);
+                        spAttr2.setAdapter(computadoraAdapter);
+                        spAttr2.setEnabled(true);
                         spAttr2.setVisibility(View.VISIBLE);
                         busqueda+=seleccion+" ";
                         break;
@@ -93,8 +101,8 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                     case "Tablet":
                         //atributo 2
                         tvAttr2.setText("Sistema Operativo: ");
-                        spAttr2Adapter.clear();
-                        spAttr2Adapter.addAll(TabletSpinner);
+                        spAttr2.setAdapter(tabletAdapter);
+                        spAttr2.setEnabled(true);
                         spAttr2.setVisibility(View.VISIBLE);
                         busqueda+=seleccion+" ";
                         break;
@@ -102,8 +110,8 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                     case "Celular":
                         //Único atributo
                         tvAttr2.setText("Gama: ");
-                        spAttr2Adapter.clear();
-                        spAttr2Adapter.addAll(CelularSpinner);
+                        spAttr2.setAdapter(celularAdapter);
+                        spAttr2.setEnabled(true);
                         spAttr2.setVisibility(View.VISIBLE);
                         busqueda+=seleccion+" ";
                         break;
@@ -124,30 +132,29 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
         spAttr2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tvAttr3.setText("");
+                spAttr3.setVisibility(View.GONE);
                 String seleccion;
                 seleccion = parent.getItemAtPosition(position).toString();
-                //spAttr2.setEnabled(false);
-                //spAttr2.setClickable(false);
-                spAttr3.setAdapter(spAttr3Adapter);
                 switch (seleccion){
                     case "Laptop":
                         tvAttr3.setText("Categoría: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(CategoriaSpinner);
+                        spAttr3.setAdapter(categoriaAdapter);
+                        spAttr3.setEnabled(true);
                         spAttr3.setVisibility(View.VISIBLE);
                         busqueda+=seleccion+" ";
                         break;
                     case "De Escritorio":
                         tvAttr3.setText("Categoría: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(CategoriaSpinner);
+                        spAttr3.setAdapter(categoriaAdapter);
+                        spAttr3.setEnabled(true);
                         spAttr3.setVisibility(View.VISIBLE);
                         busqueda+="Desktop ";
                         break;
                     case "Android":
                         tvAttr3.setText("Tamaño: ");
-                        spAttr3Adapter.clear();
-                        spAttr3Adapter.addAll(TamagnoSpinner);
+                        spAttr3.setAdapter(tamagnoAdapter);
+                        spAttr3.setEnabled(true);
                         spAttr3.setVisibility(View.VISIBLE);
                         busqueda+=seleccion+" ";
                         break;
@@ -196,11 +203,7 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
                         busqueda+=seleccion+" ";
                         break;
                 }
-                //spAttr2.setEnabled(false);
-                //spAttr2.setClickable(false);
-                //spAttr3.setAdapter(spAttr3Adapter);
-                //busqueda+=seleccion+" ";
-                //Toast.makeText(BusquedaAvanzadaActiv.this, busqueda, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -209,15 +212,14 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void buscar(View v){
         Log.i("busqueda vacia", busqueda);
         if(busqueda.equals("   ") || busqueda.equals("  ")){
-            Log.i("ALERTA ROJA","ANTRE UNO ANTES DEL DIALOGO");
             mostrarDialogo("Elige un dispositivo.");
         }else {
+            mostrarDialogo("Entré a la busqueda con el string: "+ busqueda);
             Intent intent = new Intent(this, BuscarProductoActiv.class);
             intent.putExtra("busqueda", busqueda);
             startActivity(intent);
