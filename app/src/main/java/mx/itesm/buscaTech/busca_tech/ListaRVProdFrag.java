@@ -43,18 +43,20 @@ public class ListaRVProdFrag extends Fragment {
     Bitmap[] imagenes;
     String[] tiendas;
     String[] idPreferencias;
+    Boolean agregar;
 
     public ListaRVProdFrag() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, boolean agregar) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
         this.tiendas = tiendas;
         this.idPreferencias = idPreferencias;
+        this.agregar = agregar;
     }
 
 
@@ -84,12 +86,20 @@ public class ListaRVProdFrag extends Fragment {
         String[] tiendas = {"Tienda A", "Tienda B", "Tienda C", "Tienda D" ,"Tienda E"};
         */
 
+
+
         AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos, precio, imagenes, tiendas, new ClickHandler() {
             @Override
             public void onMyButtonClicked(int position) {
-                Log.i("WALUIGI",position+"");
-                Toast.makeText(getContext(), "ANUMA", Toast.LENGTH_LONG).show();
-                agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
+                if (agregar){
+                    agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
+
+                }
+                else {
+                    eliminarFavorito(idPreferencias[position]);
+
+                }
+
             }
             //public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
         }
@@ -104,7 +114,6 @@ public class ListaRVProdFrag extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lista_rv_prod, container, false);
     }
-
 
 
 
@@ -131,14 +140,15 @@ public class ListaRVProdFrag extends Fragment {
         String idUsuario = mAuth.getCurrentUser().getUid();
         String idPreferencia = databasePreferences.push().getKey();
 
-        if (idUsuario != "uNSCzUet0ZaCprSZrs2wXfDhnX22"){
+        if (!idUsuario.equals("uNSCzUet0ZaCprSZrs2wXfDhnX22")){
             // No es invitado, no está en la cuenta de buscatechoficial
             Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda, imagen, direccion);
             databasePreferences.child(idPreferencia).setValue(preferencias);
+            Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_LONG).show();
 
         }
         else {
-            Toast.makeText(getContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG);
+            Toast.makeText(getContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG).show();
 
         }
 
@@ -147,6 +157,7 @@ public class ListaRVProdFrag extends Fragment {
 
     public void eliminarFavorito(String idPreferencia) {
         databasePreferences.child(idPreferencia).removeValue();
+        Toast.makeText(getContext(), "Eliminado de favoritos", Toast.LENGTH_LONG).show();
         obtenerFavoritos();
     }
 
@@ -231,7 +242,7 @@ public class ListaRVProdFrag extends Fragment {
 
         String[] nombres = new String[nombresArr.size()];
         for (int i = 0; i < nombresArr.size(); i++){
-            precios[i] = nombresArr.get(i);
+            nombres[i] = nombresArr.get(i);
         }
 
         String[] tiendas = new String[tiendasArr.size()];
@@ -261,7 +272,7 @@ public class ListaRVProdFrag extends Fragment {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, false);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);

@@ -71,7 +71,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
         String[] nombres = new String[nombresArr.size()];
         for (int i = 0; i < nombresArr.size(); i++){
-            precios[i] = nombresArr.get(i);
+            nombres[i] = nombresArr.get(i);
         }
 
         String[] tiendas = new String[tiendasArr.size()];
@@ -101,7 +101,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, false);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
