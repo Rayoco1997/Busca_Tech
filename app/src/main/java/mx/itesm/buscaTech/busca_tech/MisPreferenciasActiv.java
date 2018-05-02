@@ -58,11 +58,11 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
 
     private void crearLista(ArrayList<String> preciosArr,
-                            ArrayList<String> nombresArr,
-                            ArrayList<String> tiendasArr,
-                            ArrayList<String> imagenesArr,
-                            ArrayList<String> direccionesArr,
-                            ArrayList<String> preferenciasArr) {
+                             ArrayList<String> nombresArr,
+                             ArrayList<String> tiendasArr,
+                             ArrayList<String> imagenesArr,
+                             ArrayList<String> direccionesArr,
+                             ArrayList<String> preferenciasArr) {
 
         String[] precios = new String[preciosArr.size()];
         for (int i = 0; i < preciosArr.size(); i++){
