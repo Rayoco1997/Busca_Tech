@@ -28,7 +28,6 @@ public class CambiarContrasenaActiv extends AppCompatActivity {
     EditText etContrasenaNueva2;
     FirebaseAuth mAuth;
     ProgressDialog progressDialog;
-    // Boolean correcto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

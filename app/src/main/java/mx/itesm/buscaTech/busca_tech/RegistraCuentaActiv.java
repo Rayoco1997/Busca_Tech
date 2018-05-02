@@ -154,14 +154,7 @@ public class RegistraCuentaActiv extends AppCompatActivity {
                             }
                         }
                     });
-                /*
-                new BDUsuario().execute();
-                try {
-                    Thread.sleep(1000);
-                }catch (Exception e){
 
-                }
-                */
             }// En caso de que la constraseña no sea igual
             else {
                 mostrarDialogo("La constraseña no coincide...");
@@ -191,33 +184,4 @@ public class RegistraCuentaActiv extends AppCompatActivity {
     }
 
 
-    /*
-    private void grabarRegistro(){
-        try {
-            Usuario usuario = new Usuario();
-            usuario.setCorreo(etCorreo.getText().toString().toLowerCase());
-            usuario.setNombreUsuario(etNombreUsuario.getText().toString());
-            usuario.setContrasena(etContrasena1.getText().toString());
-            //usuario.setImagen(null);
-            UsuarioBD bd = UsuarioBD.getInstance(this);
-            bd.usuarioDAO().insertar(usuario);
-            Log.i("Grabar registro","Se grabó el registro del correo "+ etCorreo.getText().toString());
-            correcto=true;
-
-        } catch (Exception e) {
-            Log.i("Grabar registro","Se detectó un error en el registro del usuario, verifique salu2");
-            correcto=false;
-        }
-    }
-
-    private class BDUsuario extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            grabarRegistro();
-            return null;
-        }
-
-    }
-    */
 }

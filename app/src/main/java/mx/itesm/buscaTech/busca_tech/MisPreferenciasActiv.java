@@ -173,14 +173,6 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         matriz.get(4).add(direccion + " d " +  matriz.get(0).size());
         matriz.get(5).add(idPreferencia);
 
-        /*
-        matriz.get(0).add("Precio " + matriz.get(0).size());
-        matriz.get(1).add("nombre " + matriz.get(0).size());
-        matriz.get(2).add("tienda " + matriz.get(0).size());
-        matriz.get(3).add("imagen " + matriz.get(0).size());
-        matriz.get(4).add("direccion " + matriz.get(0).size());
-        */
-
 
         // Log.i("Inner", inner.get(0) + "\n" + inner.get(1) + "\n" + inner.get(2) + "\n" + inner.get(3) + "\n" + inner.get(4));
         Log.i("AgregarM", matriz.get(0).get(0));
@@ -201,31 +193,6 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         matriz.add(imagen);
         matriz.add(direccion);
         matriz.add(idPreferencia);
-    }
-
-
-    public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
-
-        String idUsuario = mAuth.getCurrentUser().getUid();
-        String idPreferencia = databasePreferences.push().getKey();
-
-        if (idUsuario != "uNSCzUet0ZaCprSZrs2wXfDhnX22"){
-            // No es invitado, no está en la cuenta de buscatechoficial
-            Preferencias preferencias = new Preferencias(idPreferencia, idUsuario, precio, nombre, tienda, imagen, direccion);
-            databasePreferences.child(idPreferencia).setValue(preferencias);
-
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG);
-
-        }
-
-    }
-
-
-    public void eliminarFavorito(String idPreferencia) {
-        databasePreferences.child(idPreferencia).removeValue();
-        obtenerFavoritos();
     }
 
 

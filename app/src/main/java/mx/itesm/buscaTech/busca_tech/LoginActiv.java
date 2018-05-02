@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActiv extends AppCompatActivity {
-    Boolean coincide = false;
     EditText etCorreo;
     EditText etContrasena;
     FirebaseAuth mAuth;
@@ -43,12 +42,6 @@ public class LoginActiv extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         etCorreo = findViewById(R.id.etCorreoLogin);
         etContrasena = findViewById(R.id.etContrasenaLogin);
-        /*File file = new File(getApplicationContext().getFilesDir(),"DatosUsuario");
-        if(file.exists()){
-            Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
-            startActivity(intPantallaPrincipal);
-            finish();
-        }*/
     }
 
     @Override
@@ -61,20 +54,10 @@ public class LoginActiv extends AppCompatActivity {
         }
     }
 
-    public void mandarAPantallaPrincipal(View v){
-        finish();
-        Intent intPantallaPrincipal= new Intent(this,PantallaPrincipalActiv.class);
-        startActivity(intPantallaPrincipal);
-    }
 
     public void mandarARegistrarUsuario(View v){
         Intent intRegistroUsuario= new Intent(this,RegistraCuentaActiv.class);
         startActivity(intRegistroUsuario);
-    }
-
-    public void mandarABusqueda(View v){
-        Intent intMandarABusqueda = new Intent(this, BuscarProductoActiv.class);
-        startActivity(intMandarABusqueda);
     }
 
     public void iniciarAnonimo(View v){
@@ -97,8 +80,6 @@ public class LoginActiv extends AppCompatActivity {
 
 
     }
-
-
 
 
     public void iniciarSesionFire(View v){

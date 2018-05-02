@@ -42,7 +42,6 @@ public class SugerirTiendaActiv extends AppCompatActivity {
         String categoriaTienda = spCategoriaTienda.getSelectedItem().toString();
 
         String soriana = "Nombre: "+nombreTienda+"\nDireccion: "+direccionTienda+"\nDescripción: "+descripcionTienda+"\nCategoria: "+categoriaTienda;
-
         composeEmail(soriana);
         Log.i("Sugerir Tienda", "Tienda sugerida: "+nombreTienda);
         //Intent intPantallaPrincipal= new Intent(this, PantallaPrincipalActiv.class);
