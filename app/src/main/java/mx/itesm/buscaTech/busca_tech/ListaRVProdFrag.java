@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,8 +79,8 @@ public class ListaRVProdFrag extends Fragment {
             @Override
             public void onMyButtonClicked(int position) {
                 if (agregar){
-                    agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
-
+                    // agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
+                    yaExiste("No hay direccion", "No hay imagen", nombreProductos[position], precio[position], tiendas[position]);
                 }
                 else {
                     eliminarFavorito(idPreferencias[position]);
@@ -121,6 +122,11 @@ public class ListaRVProdFrag extends Fragment {
     }
 
 
+
+
+
+
+
     public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
 
         String idUsuario = mAuth.getCurrentUser().getUid();
@@ -130,8 +136,7 @@ public class ListaRVProdFrag extends Fragment {
             // No es invitado, no está en la cuenta de buscatechoficial
             Preferencias preferencias = new Preferencias(idUsuario, precio, nombre, tienda, imagen, direccion);
             databasePreferences.child(idPreferencia).setValue(preferencias);
-            Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_LONG).show();
-
+            Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(getContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG).show();
@@ -200,13 +205,6 @@ public class ListaRVProdFrag extends Fragment {
         matriz.get(4).add(direccion + " d " +  matriz.get(0).size());
         matriz.get(5).add(idPreferencia);
 
-        /*
-        matriz.get(0).add("Precio " + matriz.get(0).size());
-        matriz.get(1).add("nombre " + matriz.get(0).size());
-        matriz.get(2).add("tienda " + matriz.get(0).size());
-        matriz.get(3).add("imagen " + matriz.get(0).size());
-        matriz.get(4).add("direccion " + matriz.get(0).size());
-        */
 
 
         // Log.i("Inner", inner.get(0) + "\n" + inner.get(1) + "\n" + inner.get(2) + "\n" + inner.get(3) + "\n" + inner.get(4));
@@ -264,6 +262,51 @@ public class ListaRVProdFrag extends Fragment {
         // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
+    }
+
+
+    private void yaExiste(final String direccion, final String imagen, final String nombre, final String precio, final String tienda) {
+        final String idUsuario = mAuth.getCurrentUser().getUid();
+        final TextView tvBoolean = (TextView) getActivity().findViewById(R.id.tvBoolean);
+        tvBoolean.setText("false");
+        databasePreferences.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tvBoolean.setText("false");
+                for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
+                    Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
+                    if (preferencias.direccion.equals(direccion)
+                            && preferencias.idUsuario.equals(idUsuario)
+                            && preferencias.imagen.equals(imagen)
+                            && preferencias.nombre.equals(nombre)
+                            && preferencias.precio.equals(precio)
+                            && preferencias.tienda.equals(tienda)){
+                        tvBoolean.setText("true");
+                        Log.i("tvBoolean1", tvBoolean.getText().toString());
+                    }
+
+                    Log.i("tvBoolean2", tvBoolean.getText().toString());
+                }
+
+                Log.i("tvBoolean3", tvBoolean.getText().toString());
+
+
+                if (tvBoolean.getText().toString().equals("true")){
+                    Log.i("ENTROIF", tvBoolean.getText().toString());
+                    Toast.makeText(getContext(), "Ya guardaste este producto", Toast.LENGTH_SHORT).show();
+                } else {
+                    agregarFavorito(precio, nombre, tienda, imagen, direccion);
+                }
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
