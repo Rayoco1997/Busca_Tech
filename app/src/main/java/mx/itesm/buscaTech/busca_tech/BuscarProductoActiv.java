@@ -41,7 +41,6 @@ public class BuscarProductoActiv extends AppCompatActivity {
         if(busquedaAvz!=null){
             buscarProducto(this.findViewById(android.R.id.content));
             //Log.i("BUSQUEDA AVANZA: ",busquedaAvz);
-
         }
     }
 
@@ -77,10 +76,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     String busquedaAvz=intent.getStringExtra("busqueda");
                     String url;
 
-
-
                     //Captura de texto desde el text field para buscar
-                    if(busquedaAvz.equals("")) {
+                    if(busquedaAvz==null) {
                         url = tiBuscarProducto.getText().toString();
 
                     }else{
