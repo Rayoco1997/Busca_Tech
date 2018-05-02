@@ -101,7 +101,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2, imagenes);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
@@ -167,11 +167,11 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
 
     public void agregarMatriz(String precio, String nombre, String tienda, String imagen, String direccion, String idPreferencia){
-        matriz.get(0).add(precio + " p " + matriz.get(0).size());
-        matriz.get(1).add(nombre + " n " + matriz.get(0).size());
-        matriz.get(2).add(tienda + " t " +  matriz.get(0).size());
-        matriz.get(3).add(imagen + " i " +  matriz.get(0).size());
-        matriz.get(4).add(direccion + " d " +  matriz.get(0).size());
+        matriz.get(0).add(precio);
+        matriz.get(1).add(nombre);
+        matriz.get(2).add(tienda);
+        matriz.get(3).add(imagen);
+        matriz.get(4).add(direccion);
         matriz.get(5).add(idPreferencia);
 
 

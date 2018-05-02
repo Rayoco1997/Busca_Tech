@@ -45,6 +45,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
     ProgressDialog progressDialog;
     //String dirImagen;
     ArrayList<Bitmap> imagenes;
+    ArrayList<String> imagenesLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                     String[] listaVacia= new String[0];
                     Bitmap[] listaVaciaBitmap= new Bitmap[0];
-                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia, listaVacia, 0);
+                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia, listaVacia, 0, listaVacia);
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
@@ -120,6 +121,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     ArrayList<String> tiendas = new ArrayList<String>();
 
                     imagenes = new ArrayList<Bitmap>();
+                    imagenesLink = new ArrayList<String>();
 
                     Bitmap bm1 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_1);
 
@@ -248,7 +250,11 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         idPreferenciasArray[i] = "TIENDA";
                     }
 
-                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0);
+                    String[] strImagenesArray = new String[count];
+
+
+
+                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray));
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
@@ -379,7 +385,9 @@ public class BuscarProductoActiv extends AppCompatActivity {
                 org.json.JSONObject objZero = dArrayItems.getJSONObject(0);
                 String dirImg = objZero.getString("link");
                 Log.i("onPostExecuteLink img:",dirImg);
+                imagenesLink.add(dirImg);
                 new DescargaImagenTarea().execute(dirImg);
+
                 //procesarImagen(dirImg);
                 /*try {
                     Log.i("URL",dirImg);
@@ -398,6 +406,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                 //BuscaLibrosActiv.this.finish();
                 e.printStackTrace();
                 imagenes.add(null);
+                imagenesLink.add(null);
                 Log.i("OPEDTT:","Hubo un error al encontrar imagen, añadí un placeholder.");
             }
 

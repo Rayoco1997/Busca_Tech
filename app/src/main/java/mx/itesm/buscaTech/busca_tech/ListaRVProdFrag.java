@@ -48,19 +48,22 @@ public class ListaRVProdFrag extends Fragment {
     // 1 es pantallaPrincipal
     // 2 es misPreferencias
     int agregar;
+    String[] strImagenes;
 
     public ListaRVProdFrag() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, int agregar) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, int agregar, String[] strImagenes) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
         this.tiendas = tiendas;
         this.idPreferencias = idPreferencias;
         this.agregar = agregar;
+        this.strImagenes = strImagenes;
+
     }
 
 
@@ -70,6 +73,7 @@ public class ListaRVProdFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         databasePreferences = FirebaseDatabase.getInstance().getReference("preferencias");
         crearMatriz();
+
     }
 
     @Override
@@ -83,21 +87,19 @@ public class ListaRVProdFrag extends Fragment {
             public void onMyButtonClicked(int position) {
                 if (agregar == 0){
                     // agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
-                    yaExisteBusqueda("No hay direccion", "No hay imagen", nombreProductos[position], precio[position], tiendas[position]);
+                    yaExisteBusqueda("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
                 }
                 else if (agregar == 1){
-                    yaExiste("No hay direccion", "No hay imagen", nombreProductos[position], precio[position], tiendas[position]);
+                    yaExiste("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
                 }
                 else if (agregar == 2){
-
                     eliminarFavorito(idPreferencias[position]);
 
                 }
 
             }
-            //public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
         }
-        , idPreferencias);
+        , idPreferencias, strImagenes);
         rvProductos.setAdapter(adaptador);
         rvProductos.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -264,7 +266,7 @@ public class ListaRVProdFrag extends Fragment {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2, imagenes);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);

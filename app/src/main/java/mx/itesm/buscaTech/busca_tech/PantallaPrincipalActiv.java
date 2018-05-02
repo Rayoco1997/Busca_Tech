@@ -96,9 +96,10 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         Bitmap[] imagenes = {bm1,bm2,bm3,bm4,bm5};
         String[] tiendas = {"Tienda A", "Tienda B", "Tienda C", "Tienda D" ,"Tienda E"};
         String[] idPreferencias = {"TIENDA", "TIENDA", "TIENDA", "TIENDA" ,"TIENDA"};
+        String[] strImagenes = {"Tienda", "Tienda", "Tienda", "Tienda", "Tienda"};
 
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, imagenes, tiendas, idPreferencias, 1);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, imagenes, tiendas, idPreferencias, 1, strImagenes);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutProductos,fragLista);
         transaction.commit();
