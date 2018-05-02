@@ -61,7 +61,8 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                             ArrayList<String> nombresArr,
                             ArrayList<String> tiendasArr,
                             ArrayList<String> imagenesArr,
-                            ArrayList<String> direccionesArr) {
+                            ArrayList<String> direccionesArr,
+                            ArrayList<String> preferenciasArr) {
 
         String[] precios = new String[preciosArr.size()];
         for (int i = 0; i < preciosArr.size(); i++){
@@ -88,6 +89,11 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             direcciones[i] = direccionesArr.get(i);
         }
 
+        String[] idPreferencias = new String[preferenciasArr.size()];
+        for (int i = 0; i < preferenciasArr.size(); i++){
+            idPreferencias[i] = preferenciasArr.get(i);
+        }
+
 
         Bitmap bm1 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_1);
         Bitmap[] imagenesBm = new Bitmap[imagenesArr.size()];
@@ -95,7 +101,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
@@ -123,7 +129,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                 for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
                     Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
                     if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
-                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion);
+                        agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferencias.idPreferencia);
                         Log.i("DATOS", preferencias.toString());
                         /*
                         Log.i("DATOS", preferencias.toString());
@@ -139,7 +145,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                     }
                 }
                 Log.i("Tamaño", matriz.get(0).size() + "");
-                crearLista(matriz.get(0), matriz.get(1), matriz.get(2), matriz.get(3), matriz.get(4));
+                crearLista(matriz.get(0), matriz.get(1), matriz.get(2), matriz.get(3), matriz.get(4), matriz.get(5));
             }
 
             @Override
@@ -159,12 +165,13 @@ public class MisPreferenciasActiv extends AppCompatActivity {
     }
 
 
-    public void agregarMatriz(String precio, String nombre, String tienda, String imagen, String direccion){
+    public void agregarMatriz(String precio, String nombre, String tienda, String imagen, String direccion, String idPreferencia){
         matriz.get(0).add(precio + " p " + matriz.get(0).size());
         matriz.get(1).add(nombre + " n " + matriz.get(0).size());
         matriz.get(2).add(tienda + " t " +  matriz.get(0).size());
         matriz.get(3).add(imagen + " i " +  matriz.get(0).size());
         matriz.get(4).add(direccion + " d " +  matriz.get(0).size());
+        matriz.get(5).add(idPreferencia);
 
         /*
         matriz.get(0).add("Precio " + matriz.get(0).size());
@@ -187,12 +194,13 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         ArrayList<String> tienda = new ArrayList<String>();
         ArrayList<String> imagen = new ArrayList<String>();
         ArrayList<String> direccion = new ArrayList<String>();
+        ArrayList<String> idPreferencia = new ArrayList<String>();
         matriz.add(precio);
         matriz.add(nombre);
         matriz.add(tienda);
         matriz.add(imagen);
         matriz.add(direccion);
-
+        matriz.add(idPreferencia);
     }
 
 

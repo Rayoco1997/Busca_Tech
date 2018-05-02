@@ -21,13 +21,15 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
     private String[] arrPrecioProd;
     private Bitmap[] arrImagenProd;
     private String[] arrTiendaProd;
+    private String[] arrIdPreferenciaProd;
 
-    public AdaptadorRVProd(String[] nombres, String[] precios, Bitmap[] imagenes, String[] tiendas, final ClickHandler clickHandler){
+    public AdaptadorRVProd(String[] nombres, String[] precios, Bitmap[] imagenes, String[] tiendas, final ClickHandler clickHandler, String[] idPreferenciaProd){
         arrNombreProd = nombres;
         arrPrecioProd = precios;
         arrImagenProd = imagenes;
         arrTiendaProd = tiendas;
         this.clickHandler = clickHandler;
+        arrIdPreferenciaProd = idPreferenciaProd;
     }
 
     @Override
@@ -45,11 +47,13 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         TextView tvPrecioProd = tarjeta.findViewById(R.id.tvPrecioProd);
         ImageView ivImgProd = tarjeta.findViewById(R.id.ivImgProd);
         TextView tvTiendaProd = tarjeta.findViewById(R.id.tvTiendaProd);
+        TextView tvIdPreferenciasProd = tarjeta.findViewById(R.id.tvIdPreferenciaProd);
         tvNombreProd.setText(arrNombreProd[position]);
         tvPrecioProd.setText(arrPrecioProd[position]);
         ivImgProd.setImageBitmap(arrImagenProd[position]);
         tvTiendaProd.setText(arrTiendaProd[position]);
         holder.clickHandler = this.clickHandler;
+        tvIdPreferenciasProd.setText(arrIdPreferenciaProd[position]);
     }
 
     @Override

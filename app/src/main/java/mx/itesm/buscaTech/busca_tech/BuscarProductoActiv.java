@@ -64,7 +64,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                     String[] listaVacia= new String[0];
                     Bitmap[] listaVaciaBitmap= new Bitmap[0];
-                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia);
+                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia, listaVacia);
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
@@ -159,9 +159,12 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     Bitmap[] imagenesArray = new Bitmap[count];
 
                     String[] tiendasArray= new String[count];
+                    String[] idPreferenciasArray= new String[count];
+                    for (int i = 0; i < idPreferenciasArray.length; i++){
+                        idPreferenciasArray[i] = "TIENDA";
+                    }
 
-
-                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray));
+                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray), idPreferenciasArray);
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();

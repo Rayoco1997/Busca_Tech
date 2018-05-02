@@ -25,17 +25,19 @@ public class ListaRVProdFrag extends Fragment {
     String[] precio;
     Bitmap[] imagenes;
     String[] tiendas;
+    String[] idPreferencias;
 
     public ListaRVProdFrag() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
         this.tiendas = tiendas;
+        this.idPreferencias = idPreferencias;
     }
 
     @Override
@@ -63,7 +65,8 @@ public class ListaRVProdFrag extends Fragment {
                 Toast.makeText(getContext(), "ANUMA", Toast.LENGTH_LONG).show();
 
             }
-        });
+        }
+        , idPreferencias);
         rvProductos.setAdapter(adaptador);
         rvProductos.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
