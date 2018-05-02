@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActiv">
+        <activity android:name=".LoginActiv"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,16 +23,26 @@
         <activity
             android:name=".PantallaPrincipalActiv"
             android:label="@string/title_activity_pantalla_principal"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BuscarProductoActiv" />
-        <activity android:name=".SugerirTiendaActiv" />
-        <activity android:name=".MisPreferenciasActiv" />
-        <activity android:name=".MiPerfilActiv" />
-        <activity android:name=".CambiarUsuarioActiv" />
-        <activity android:name=".CambiarContrasenaActiv" />
-        <activity android:name=".BusquedaAvanzadaActiv" />
-        <activity android:name=".CambiarCorreoActiv" />
-        <activity android:name=".OlvidarContrasenaActiv"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BuscarProductoActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SugerirTiendaActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MisPreferenciasActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MiPerfilActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CambiarUsuarioActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CambiarContrasenaActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BusquedaAvanzadaActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CambiarCorreoActiv"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OlvidarContrasenaActiv"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
