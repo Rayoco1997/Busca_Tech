@@ -87,7 +87,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                     String[] listaVacia= new String[0];
                     Bitmap[] listaVaciaBitmap= new Bitmap[0];
-                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia, listaVacia, true);
+                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVaciaBitmap, listaVacia, listaVacia, 0);
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
@@ -177,7 +177,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         // can only grab first 100 results
                         String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
                         busquedaImagen= URLEncoder.encode(child.attr("alt"), "utf-8");
-                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=AIzaSyCfzaKUhXJNutgwmVvp91RKNijvt9j-CKo";
+                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=AIzaSyBf8R40a48_oa4DGjtzVQvhavgH8K1ndgk";
 
                         //List<String> resultUrls = new ArrayList<String>();
 
@@ -248,7 +248,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         idPreferenciasArray[i] = "TIENDA";
                     }
 
-                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray), idPreferenciasArray, true);
+                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), imagenes.toArray(imagenesArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0);
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();

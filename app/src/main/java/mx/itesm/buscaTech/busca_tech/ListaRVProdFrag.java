@@ -44,14 +44,17 @@ public class ListaRVProdFrag extends Fragment {
     Bitmap[] imagenes;
     String[] tiendas;
     String[] idPreferencias;
-    Boolean agregar;
+    // 0 es buscarProducto
+    // 1 es pantallaPrincipal
+    // 2 es misPreferencias
+    int agregar;
 
     public ListaRVProdFrag() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, boolean agregar) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, int agregar) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
@@ -78,11 +81,15 @@ public class ListaRVProdFrag extends Fragment {
         AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos, precio, imagenes, tiendas, new ClickHandler() {
             @Override
             public void onMyButtonClicked(int position) {
-                if (agregar){
+                if (agregar == 0){
                     // agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
+                    yaExisteBusqueda("No hay direccion", "No hay imagen", nombreProductos[position], precio[position], tiendas[position]);
+                }
+                else if (agregar == 1){
                     yaExiste("No hay direccion", "No hay imagen", nombreProductos[position], precio[position], tiendas[position]);
                 }
-                else {
+                else if (agregar == 2){
+
                     eliminarFavorito(idPreferencias[position]);
 
                 }
@@ -257,7 +264,7 @@ public class ListaRVProdFrag extends Fragment {
             imagenesBm[i] = bm1;
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, false);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
@@ -309,6 +316,51 @@ public class ListaRVProdFrag extends Fragment {
 
     }
 
+
+
+    private void yaExisteBusqueda(final String direccion, final String imagen, final String nombre, final String precio, final String tienda) {
+        final String idUsuario = mAuth.getCurrentUser().getUid();
+        final TextView tvBoolean = (TextView) getActivity().findViewById(R.id.tvBooleanProd);
+        tvBoolean.setText("false");
+        databasePreferences.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tvBoolean.setText("false");
+                for (DataSnapshot preferenciaSnapshot : dataSnapshot.getChildren()){
+                    Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
+                    if (preferencias.direccion.equals(direccion)
+                            && preferencias.idUsuario.equals(idUsuario)
+                            && preferencias.imagen.equals(imagen)
+                            && preferencias.nombre.equals(nombre)
+                            && preferencias.precio.equals(precio)
+                            && preferencias.tienda.equals(tienda)){
+                        tvBoolean.setText("true");
+                        Log.i("tvBoolean1", tvBoolean.getText().toString());
+                    }
+
+                    Log.i("tvBoolean2", tvBoolean.getText().toString());
+                }
+
+                Log.i("tvBoolean3", tvBoolean.getText().toString());
+
+
+                if (tvBoolean.getText().toString().equals("true")){
+                    Log.i("ENTROIF", tvBoolean.getText().toString());
+                    Toast.makeText(getContext(), "Ya guardaste este producto", Toast.LENGTH_SHORT).show();
+                } else {
+                    agregarFavorito(precio, nombre, tienda, imagen, direccion);
+                }
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 
 }
