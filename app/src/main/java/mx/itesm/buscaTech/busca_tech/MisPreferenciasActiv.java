@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,16 +106,14 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             tiendas[i] = tiendasArr.get(i);
         }
 
+        Bitmap[] imagenesBitmap = new Bitmap[imagenesArr.size()];
         String[] imagenes = new String[imagenesArr.size()];
+
         for (int i = 0; i < imagenesArr.size(); i++){
-            new DescargaImagenTarea().execute(imagenesArr.get(i));
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            //imagenes[i] = imagenesArr.get(i);
+            imagenes[i] = imagenesArr.get(i);
         }
+
+
 
         String[] direcciones = new String[direccionesArr.size()];
         for (int i = 0; i < direccionesArr.size(); i++){
@@ -180,7 +179,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             Log.i("Elemento: ",""+imagenesBm[i]);
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2, imagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
@@ -323,6 +322,8 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
         }
     }*/
+
+    /*
     public static Drawable drawableFromUrl(String url) throws IOException {
         Bitmap x;
 
@@ -342,6 +343,10 @@ public class MisPreferenciasActiv extends AppCompatActivity {
         return mutableBitmap;
     }
 
+    */
+
+
+    /*
     private Bitmap descargarImagen(String direccion) {
         Bitmap bitmap = null;
 
@@ -364,7 +369,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
         @Override
         protected Bitmap doInBackground(String... urls) {
-            return descargarImagen(urls[0]);
+            return getBitmapFromURL(urls[0]);
         }
 
         @Override
@@ -378,6 +383,29 @@ public class MisPreferenciasActiv extends AppCompatActivity {
 
         }
     }
+
+    */
+
+
+
+    /*
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
+    }
+    */
+
+
 
 
 }

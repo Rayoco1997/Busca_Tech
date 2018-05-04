@@ -133,14 +133,16 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         posicionLista=4;
         new DescargaImagenTarea().execute(strImagenes[4]);*/
 
+        /*
         Bitmap bm1 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_1);
         Bitmap bm2 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_2);
         Bitmap bm3 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_3);
         Bitmap bm4 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_4);
         Bitmap bm5 = BitmapFactory.decodeResource(getResources(),R.drawable.comp_5);
         Bitmap[]imagenes = {bm1,bm2,bm3,bm4,bm5};
+        */
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, imagenes, tiendas, idPreferencias, 1, strImagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, tiendas, idPreferencias, 1, strImagenes);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutProductos,fragLista);
         transaction.commit();

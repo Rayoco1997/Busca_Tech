@@ -60,7 +60,7 @@ public class ListaRVProdFrag extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, Bitmap[] imagenes, String[] tiendas, String[] idPreferencias, int agregar, String[] strImagenes) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, String[] tiendas, String[] idPreferencias, int agregar, String[] strImagenes) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
@@ -87,7 +87,7 @@ public class ListaRVProdFrag extends Fragment {
 
         rvProductos = getActivity().findViewById(R.id.rvProductos);
 
-        AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos, precio, imagenes, tiendas, new ClickHandler() {
+        AdaptadorRVProd adaptador = new AdaptadorRVProd(nombreProductos, precio, tiendas, new ClickHandler() {
             @Override
             public void onMyButtonClicked(int position) {
                 if (agregar == 0){
@@ -175,9 +175,9 @@ public class ListaRVProdFrag extends Fragment {
                     Preferencias preferencias = preferenciaSnapshot.getValue(Preferencias.class);
                     if (preferencias.getIdUsuario().equals(mAuth.getCurrentUser().getUid())){
                         agregarMatriz(preferencias.precio, preferencias.nombre, preferencias.tienda, preferencias.imagen, preferencias.direccion, preferenciaSnapshot.getKey());
-                        Log.i("KEY", preferenciaSnapshot.getKey());
-                        Log.i("DATOS", preferencias.toString());
                         /*
+                        // Checar datos que de la matriz
+                        Log.i("KEY", preferenciaSnapshot.getKey());
                         Log.i("DATOS", preferencias.toString());
                         Log.i("Length", matriz.size() + "");
                         for (int i = 0; i < matriz.size(); i++){
@@ -190,7 +190,13 @@ public class ListaRVProdFrag extends Fragment {
                         */
                     }
                 }
+                /*
+                // Checar dirección de la imagen
                 Log.i("Tamaño", matriz.get(0).size() + "");
+                for (int i = 0; i < matriz.get(3).size(); i++){
+                    Log.i("DirIma", matriz.get(3).get(i)+"");
+                }
+                */
                 crearLista(matriz.get(0), matriz.get(1), matriz.get(2), matriz.get(3), matriz.get(4), matriz.get(5));
             }
 
@@ -199,6 +205,8 @@ public class ListaRVProdFrag extends Fragment {
 
             }
         });
+        /*
+        // Tamaño total de la lista
         Log.i("TamLista", matriz.get(0).size() + "");
         for (int i = 0; i < matriz.get(0).size(); i++){
             Log.i("Lista", matriz.get(0).get(i) +
@@ -207,23 +215,17 @@ public class ListaRVProdFrag extends Fragment {
                     "\n" + matriz.get(3).get(i) +
                     "\n" + matriz.get(4).get(i));
         }
-
+        */
     }
 
 
     public void agregarMatriz(String precio, String nombre, String tienda, String imagen, String direccion, String idPreferencia){
-        matriz.get(0).add(precio + " p " + matriz.get(0).size());
-        matriz.get(1).add(nombre + " n " + matriz.get(0).size());
-        matriz.get(2).add(tienda + " t " +  matriz.get(0).size());
-        matriz.get(3).add(imagen + " i " +  matriz.get(0).size());
-        matriz.get(4).add(direccion + " d " +  matriz.get(0).size());
+        matriz.get(0).add(precio);
+        matriz.get(1).add(nombre);
+        matriz.get(2).add(tienda);
+        matriz.get(3).add(imagen);
+        matriz.get(4).add(direccion);
         matriz.get(5).add(idPreferencia);
-
-
-
-        // Log.i("Inner", inner.get(0) + "\n" + inner.get(1) + "\n" + inner.get(2) + "\n" + inner.get(3) + "\n" + inner.get(4));
-        Log.i("AgregarM", matriz.get(0).get(0));
-
     }
 
 
@@ -265,49 +267,12 @@ public class ListaRVProdFrag extends Fragment {
         }
 
 
-        Bitmap bmLogo = BitmapFactory.decodeResource(getResources(),R.drawable.logobuscatech);
-        //bmLogo=redimensionarImagenMaximo(bmLogo,400,400);
         Bitmap[] imagenesBm = new Bitmap[imagenesArr.size()];
-        Bitmap bm;
-        Log.i("LISTA CONT:",imagenes.toString());
-        for (int i = 0; i < imagenesArr.size(); i++){
-            if(!imagenes[i].equals("Logo")) {
-                try {
-                    URL urlImagen = new URL(imagenes[i]);
-                    HttpURLConnection connection = null;
-                    connection = (HttpURLConnection) urlImagen.openConnection();
-                    connection.setDoInput(true);
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    bm = BitmapFactory.decodeStream(input);
-                    imagenesBm[i]=redimensionarImagenMaximo(bm,400,400);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                imagenesBm[i] = bmLogo;
-            }
-        }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, imagenesBm, tiendas, idPreferencias, 2, imagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();
-    }
-
-    public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
-        //Redimensionamos
-        int width = mBitmap.getWidth();
-        int height = mBitmap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeigth) / height;
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-        // recreate the new Bitmap
-        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
     }
 
 
@@ -329,23 +294,15 @@ public class ListaRVProdFrag extends Fragment {
                             && preferencias.precio.equals(precio)
                             && preferencias.tienda.equals(tienda)){
                         tvBoolean.setText("true");
-                        Log.i("tvBoolean1", tvBoolean.getText().toString());
                     }
-
-                    Log.i("tvBoolean2", tvBoolean.getText().toString());
                 }
 
-                Log.i("tvBoolean3", tvBoolean.getText().toString());
-
-
                 if (tvBoolean.getText().toString().equals("true")){
-                    Log.i("ENTROIF", tvBoolean.getText().toString());
                     Toast.makeText(getContext(), "Ya guardaste este producto", Toast.LENGTH_SHORT).show();
                 } else {
                     agregarFavorito(precio, nombre, tienda, imagen, direccion);
                 }
             }
-
 
 
             @Override
@@ -355,7 +312,6 @@ public class ListaRVProdFrag extends Fragment {
         });
 
     }
-
 
 
     private void yaExisteBusqueda(final String direccion, final String imagen, final String nombre, final String precio, final String tienda) {
@@ -375,23 +331,15 @@ public class ListaRVProdFrag extends Fragment {
                             && preferencias.precio.equals(precio)
                             && preferencias.tienda.equals(tienda)){
                         tvBoolean.setText("true");
-                        Log.i("tvBoolean1", tvBoolean.getText().toString());
                     }
-
-                    Log.i("tvBoolean2", tvBoolean.getText().toString());
                 }
 
-                Log.i("tvBoolean3", tvBoolean.getText().toString());
-
-
                 if (tvBoolean.getText().toString().equals("true")){
-                    Log.i("ENTROIF", tvBoolean.getText().toString());
                     Toast.makeText(getContext(), "Ya guardaste este producto", Toast.LENGTH_SHORT).show();
                 } else {
                     agregarFavorito(precio, nombre, tienda, imagen, direccion);
                 }
             }
-
 
 
             @Override
