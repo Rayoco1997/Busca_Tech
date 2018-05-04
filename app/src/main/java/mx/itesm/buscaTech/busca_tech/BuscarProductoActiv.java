@@ -12,8 +12,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
@@ -47,7 +54,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
     // ArrayList<Bitmap> imagenes;
     ArrayList<String> imagenesLink;
     Bitmap bmLogo;
-
+    DatabaseReference dbRef;
+    TextView tvBoolean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,26 @@ public class BuscarProductoActiv extends AppCompatActivity {
             buscarProducto(this.findViewById(android.R.id.content));
             //Log.i("BUSQUEDA AVANZA: ",busquedaAvz);
         }
+
+        tvBoolean = (TextView) findViewById(R.id.tvBooleanProd);
+        obtenerLlave();
+    }
+
+    public void obtenerLlave(){
+        final String[] llave = new String[1];
+        dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef.child("llave").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                llave[0] = snapshot.getValue().toString();
+                tvBoolean.setText(llave[0]);
+                Log.i("Llave", tvBoolean.getText().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void mandarABusquedaAvanzada(View v){
@@ -81,6 +109,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
         progressDialog.setMessage("Buscando...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+        final String llave = tvBoolean.getText().toString();
+        Log.i("LlaveChida", llave);
 
 
         new Thread(new Runnable() {
@@ -148,8 +178,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         // can only grab first 100 results
                         String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
                         busquedaImagen= URLEncoder.encode(child.attr("alt"), "utf-8");
-                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=AIzaSyBf8R40a48_oa4DGjtzVQvhavgH8K1ndgk";
-
+                        Log.i("LlaveBus", llave);
+                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key="+llave;
                         //List<String> resultUrls = new ArrayList<String>();
 
                         new DescargaTextoTarea().execute(url1);
