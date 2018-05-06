@@ -1,6 +1,7 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,6 +91,10 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                              ArrayList<String> imagenesArr,
                              ArrayList<String> direccionesArr,
                              ArrayList<String> preferenciasArr) {
+
+        if(matriz.get(0).size() == 0){
+            mostrarDialogo("No tienes guardado ningún producto.");
+        }
 
 
         String[] precios = new String[preciosArr.size()];
@@ -242,6 +248,24 @@ public class MisPreferenciasActiv extends AppCompatActivity {
                     "\n" + matriz.get(3).get(i) +
                     "\n" + matriz.get(4).get(i));
         }
+
+
+
+    }
+
+
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
 
     }
 

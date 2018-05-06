@@ -193,11 +193,14 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         busquedaImagen= URLEncoder.encode(child.attr("alt"), "utf-8");
                         Log.i("LlaveBus", llave);
                         String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
+                        /*
                         if (llave == null || llave.equals("TextView")){
                             url1 += "AIzaSyBZQjas9U3NkTVyvb6ppSngIwECm_1bVf4";
                         } else {
                             url1 += llave;
                         }
+                        */
+                        url1 += "AIzaSyBZQjas9U3NkTVyvb6ppSngIwECm_1bVf4";
 
                         //List<String> resultUrls = new ArrayList<String>();
 
