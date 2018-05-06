@@ -72,18 +72,21 @@ public class BuscarProductoActiv extends AppCompatActivity {
         Intent intent = getIntent();
         String busquedaAvz = intent.getStringExtra("busqueda");
 
-        if(busquedaAvz!=null){
+
+        dbRef = FirebaseDatabase.getInstance().getReference();
+        tvBoolean = (TextView) findViewById(R.id.tvBooleanProd);
+        obtenerLlave();
+
+        if(busquedaAvz != null){
             buscarProducto(this.findViewById(android.R.id.content));
             //Log.i("BUSQUEDA AVANZA: ",busquedaAvz);
         }
 
-        tvBoolean = (TextView) findViewById(R.id.tvBooleanProd);
-        obtenerLlave();
+
     }
 
     public void obtenerLlave(){
         final String[] llave = new String[1];
-        dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.child("llave").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -179,7 +182,13 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
                         busquedaImagen= URLEncoder.encode(child.attr("alt"), "utf-8");
                         Log.i("LlaveBus", llave);
-                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key="+llave;
+                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
+                        if (llave == null || llave.equals("TextView")){
+                            url1 += "AIzaSyBZQjas9U3NkTVyvb6ppSngIwECm_1bVf4";
+                        } else {
+                            url1 += llave;
+                        }
+
                         //List<String> resultUrls = new ArrayList<String>();
 
                         new DescargaTextoTarea().execute(url1);
