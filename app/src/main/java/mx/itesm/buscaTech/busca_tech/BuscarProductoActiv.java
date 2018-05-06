@@ -1,6 +1,7 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,6 +107,12 @@ public class BuscarProductoActiv extends AppCompatActivity {
     public void mandarABusquedaAvanzada(View v){
         Intent intBusquedaAvanzada= new Intent(this,BusquedaAvanzadaActiv.class);
         startActivity(intBusquedaAvanzada);
+        finish();
+    }
+
+    private void quitarTeclado(View v) {
+        InputMethodManager teclado = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        teclado.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
 
@@ -114,7 +123,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
         progressDialog.show();
         final String llave = tvBoolean.getText().toString();
         Log.i("LlaveChida", llave);
-
+        quitarTeclado(this.findViewById(android.R.id.content));
 
         new Thread(new Runnable() {
             @Override
@@ -139,6 +148,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     //Captura de texto desde el text field para buscar
                     if(busquedaAvz==null) {
                         url = tiBuscarProducto.getText().toString();
+                        //tiBuscarProducto.setInputType(InputType.TYPE_NULL);
 
                     }else{
                         url = busquedaAvz;

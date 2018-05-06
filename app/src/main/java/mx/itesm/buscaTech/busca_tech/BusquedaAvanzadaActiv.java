@@ -214,15 +214,24 @@ public class BusquedaAvanzadaActiv extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intentReturn= new Intent(this,BuscarProductoActiv.class);
+        startActivity(intentReturn);
+        finish();
+    }
+
     public void buscar(View v){
         Log.i("busqueda vacia", busqueda);
-        if(busqueda.equals("   ") || busqueda.equals("  ")){
+        if(busqueda.equals("  ") || busqueda.equals(" ")){
             mostrarDialogo("Elige un dispositivo.");
         }else {
-            mostrarDialogo("Entré a la busqueda con el string: "+ busqueda);
+            //mostrarDialogo("Entré a la busqueda con el string: "+ busqueda);
             Intent intent = new Intent(this, BuscarProductoActiv.class);
             intent.putExtra("busqueda", busqueda);
             startActivity(intent);
+            finish();
 
         }
     }
