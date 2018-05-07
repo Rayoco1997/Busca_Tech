@@ -2,6 +2,7 @@ package mx.itesm.buscaTech.busca_tech;
 
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -165,6 +167,22 @@ public class ListaRVProdFrag extends Fragment {
     }
 
 
+    private void mostrarDialogo(String mensaje) {
+        AlertDialog.Builder builder= new AlertDialog.Builder(getContext());
+        builder.setTitle("AVISO");
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Click
+                //Info que tiene que pasar
+            }
+        });
+        builder.show();
+
+    }
+
+
     public void eliminarFavorito(String idPreferencia) {
         databasePreferences.child(idPreferencia).removeValue();
         Toast.makeText(getContext(), "Eliminado de favoritos", Toast.LENGTH_LONG).show();
@@ -240,6 +258,10 @@ public class ListaRVProdFrag extends Fragment {
                             ArrayList<String> imagenesArr,
                             ArrayList<String> direccionesArr,
                             ArrayList<String> preferenciasArr) {
+
+        if(matriz.get(0).size() == 0){
+            mostrarDialogo("No tienes guardado ningún producto.");
+        }
 
         String[] precios = new String[preciosArr.size()];
         for (int i = 0; i < preciosArr.size(); i++){
