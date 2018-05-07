@@ -216,7 +216,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             MenuItem menuItemMiPerfil = menu.findItem(R.id.nav_MiPerfil).setEnabled(false);
 
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("Si desea guardar los productos que busque o sugerir una tienda, inicie sesión como usuario");
+            builder1.setMessage("Si desea guardar los productos que busque o sugerir una tienda, inicie sesión como usuario.");
             builder1.setCancelable(false);
 
             builder1.setPositiveButton(

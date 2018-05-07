@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,8 +124,9 @@ public class BuscarProductoActiv extends AppCompatActivity {
         finish();
     }
 
-    private void quitarTeclado(View v) {
+    private void quitarTeclado() {
         InputMethodManager teclado = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View v= this.findViewById(android.R.id.content);
         teclado.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
@@ -137,7 +139,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
             progressDialog.show();
             final String llave = tvBoolean.getText().toString();
             Log.i("LlaveChida", llave);
-            quitarTeclado(this.findViewById(android.R.id.content));
+            quitarTeclado();
 
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -157,15 +159,17 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         //Llamar al algoritmo de búsqueda
                         Intent intent = getIntent();
                         String busquedaAvz = intent.getStringExtra("busqueda");
+                        intent.putExtra("busqueda", "");
                         String url;
 
                         //Captura de texto desde el text field para buscar
-                        if (busquedaAvz == null) {
+                        if (busquedaAvz == null|| busquedaAvz.equals("")) {
                             url = tiBuscarProducto.getText().toString();
                             //tiBuscarProducto.setInputType(InputType.TYPE_NULL);
 
                         } else {
                             url = busquedaAvz;
+                            busquedaAvz="";
                         }
 
 
@@ -208,17 +212,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             Log.i("LlaveBus", llave);
                             String url1 = "https://www.googleapis.com/customsearch/v1?q=" + busquedaImagen + "&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
 
-                            /*
-                            if (llave == null || llave.equals("TextView")) {
-                                url1 += "AIzaSyBqXHKz3Zym-QE3f6jNihBckgXP03KgjKE";
-                            } else {
-                                url1 += llave;
-                            }
-                            */
-
                             url1 += "AIzaSyBqXHKz3Zym-QE3f6jNihBckgXP03KgjKE";
-
-                            //List<String> resultUrls = new ArrayList<String>();
 
                             new DescargaTextoTarea().execute(url1);
 
@@ -227,18 +221,6 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
-                            //new DescargaTextoTarea().execute(url1);
-                        /*Thread.sleep(10000);
-                        Log.i("URL",dirImagen);
-                        URL urlImagen = new URL(dirImagen);
-                        HttpURLConnection connection = (HttpURLConnection) urlImagen.openConnection();
-                        connection.setDoInput(true);
-                        connection.connect();
-                        InputStream input = connection.getInputStream();
-                        Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                        imagenes.add(redimensionarImagenMaximo(myBitmap,400,400));*/
-
 
                             //IMAGEN
                             System.out.println("Nombre: " + child.attr("alt"));
@@ -261,48 +243,13 @@ public class BuscarProductoActiv extends AppCompatActivity {
                                 precio.remove(count);
                             } else {
                                 tiendas.add(lug);
-                                //tiendas[count]= lug;
-
-                                //System.out.println("Lugar: "+lug);
-
-                                //imagenes.add(bm1);
-                                //imagenes[count]=bm1;
                                 count++;
                                 j += 1;
                             }
 
                         }
-                    /*
-                    if (count==0){
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder1 = new android.support.v7.app.AlertDialog.Builder(getApplicationContext());
-                                builder1.setMessage("No se encontraron resultados de su busqueda");
-                                builder1.setCancelable(false);
-
-                                builder1.setPositiveButton(
-                                        "Aceptar",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-
-
-                                AlertDialog alert11 = builder1.create();
-                                alert11.show();
-                                //show your dialog here
-                                //do your work here
-                            }
-                        });
-                    }*/
                         String[] nombreProductosArray;
                         String[] precioArray;
-
-                        //Bitmap[] imagenesArray = new Bitmap[count];
-
                         String[] tiendasArray;
                         String[] idPreferenciasArray;
 
@@ -341,13 +288,13 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     }
 
                     progressDialog.dismiss();
-
-
+                    //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 }
             });
 
 
             thread.start();
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }else{
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("No hay conexión a internet");
@@ -395,39 +342,6 @@ public class BuscarProductoActiv extends AppCompatActivity {
         //progressDialog.dismiss();
 
     }
-
-    /*
-    public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
-        //Redimensionamos
-        int width = mBitmap.getWidth();
-        int height = mBitmap.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeigth) / height;
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-        // recreate the new Bitmap
-        return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
-    }
-    */
-
-
-
-    /*public void procesarImagen(String dirImagen){
-        try {
-            Log.i("URL",dirImagen);
-            URL urlImagen = new URL(dirImagen);
-            HttpURLConnection connection = (HttpURLConnection) urlImagen.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            imagenes.add(redimensionarImagenMaximo(myBitmap,400,400));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
 
