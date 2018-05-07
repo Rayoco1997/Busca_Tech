@@ -10,8 +10,8 @@
             android:title="Buscar producto" />
         <item
             android:id="@+id/nav_Preferencias"
-            android:icon="@android:drawable/ic_input_get"
-            android:title="Mis preferencias" />
+            android:icon="@android:drawable/star_big_off"
+            android:title="Mis favoritos" />
         <item
             android:id="@+id/nav_SugerirTienda"
             android:icon="@android:drawable/ic_input_add"
