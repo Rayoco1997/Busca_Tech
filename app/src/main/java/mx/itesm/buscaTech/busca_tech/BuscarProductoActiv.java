@@ -2,6 +2,7 @@ package mx.itesm.buscaTech.busca_tech;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -59,6 +61,8 @@ public class BuscarProductoActiv extends AppCompatActivity {
     Bitmap bmLogo;
     DatabaseReference dbRef;
     TextView tvBoolean;
+
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +129,9 @@ public class BuscarProductoActiv extends AppCompatActivity {
         Log.i("LlaveChida", llave);
         quitarTeclado(this.findViewById(android.R.id.content));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        Thread thread =new Thread(new Runnable() {
+                @Override
+                public void run() {
 
                 try {
                     //INICIO DEL METODO PARA LIMPIAR LISTA DE FRAGMENTS
@@ -169,7 +173,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     imagenesLink = new ArrayList<String>();
 
 
-                    int count=0;
+                    count=0;
                     int j = 0;
 
                     String busquedaImagen;
@@ -195,7 +199,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
 
                         if (llave == null || llave.equals("TextView")){
-                            url1 += "AIzaSyDcqmIZUu6y5ipqTVDFdG3cY3qXZhi3yEE";
+                            url1 += "AIzaSyB41JAB_1vGimLIZuxbKS_jJbhCObRiUgs";
                         } else {
                             url1 += llave;
                         }
@@ -253,33 +257,70 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             j+=1;
                         }
 
-
-
-
-
-
                     }
+                    /*
+                    if (count==0){
 
-                    String[] nombreProductosArray= new String[count];
-                    String[] precioArray= new String[count];
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder1 = new android.support.v7.app.AlertDialog.Builder(getApplicationContext());
+                                builder1.setMessage("No se encontraron resultados de su busqueda");
+                                builder1.setCancelable(false);
+
+                                builder1.setPositiveButton(
+                                        "Aceptar",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+                                //show your dialog here
+                                //do your work here
+                            }
+                        });
+                    }*/
+                    String[] nombreProductosArray;
+                    String[] precioArray;
 
                     //Bitmap[] imagenesArray = new Bitmap[count];
 
-                    String[] tiendasArray= new String[count];
-                    String[] idPreferenciasArray= new String[count];
+                    String[] tiendasArray;
+                    String[] idPreferenciasArray;
+
+                    if(count!=0) {
+                        nombreProductosArray= new String[count];
+                        precioArray = new String[count];
+                        tiendasArray = new String[count];
+                        idPreferenciasArray = new String[count];
+                    }else{
+                        nombreProductosArray= new String[1];
+                        precioArray = new String[1];
+                        tiendasArray = new String[1];
+                        idPreferenciasArray = new String[1];
+                    }
                     for (int i = 0; i < idPreferenciasArray.length; i++){
                         idPreferenciasArray[i] = "TIENDA";
                     }
 
                     String[] strImagenesArray = new String[count];
 
+                    if (count==0){
+                        nombreProductos.add("NO SE ENCONTRARON RESULTADOS");
+                        precio.add(" ");
+                        tiendas.add(" ");
+                        imagenesLink.add("http://unbxd.com/blog/wp-content/uploads/2014/02/No-results-found.jpg");
 
+                    }
 
                     fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray));
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.layoutProductos,fragLista);
                     transaction.commit();
-
 
                 } catch (IOException e) {
                     Log.i("ERROR JSOUP", e.getLocalizedMessage());
@@ -289,7 +330,36 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
 
             }
-        }).start();
+        });
+
+
+        thread.start();
+
+        /*(thread.getState()!= Thread.State.TERMINATED){
+            //Log.i("MESSAGE","IT IS NOT TERMINATED");
+        }*/
+/*
+        if(count==0){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No se encontraron resultados de su busqueda");
+            builder1.setCancelable(false);
+
+            builder1.setPositiveButton(
+                    "Aceptar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }*/
+
+
+
+
         //progressDialog.dismiss();
 
     }
