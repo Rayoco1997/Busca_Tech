@@ -147,10 +147,15 @@ public class ListaRVProdFrag extends Fragment {
         String idPreferencia = databasePreferences.push().getKey();
 
         if (!idUsuario.equals("uNSCzUet0ZaCprSZrs2wXfDhnX22")){
-            // No es invitado, no está en la cuenta de buscatechoficial
-            Preferencias preferencias = new Preferencias(idUsuario, precio, nombre, tienda, imagen, direccion);
-            databasePreferences.child(idPreferencia).setValue(preferencias);
-            Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_SHORT).show();
+            if (nombre.equals("NO SE ENCONTRARON RESULTADOS")) {
+
+            } else {
+                // No es invitado, no está en la cuenta de buscatechoficial
+                Preferencias preferencias = new Preferencias(idUsuario, precio, nombre, tienda, imagen, direccion);
+                databasePreferences.child(idPreferencia).setValue(preferencias);
+                Toast.makeText(getContext(), "Guardado a favoritos", Toast.LENGTH_SHORT).show();
+            }
+
         }
         else {
             Toast.makeText(getContext(), "No puedes guardar favoritos como invitado.", Toast.LENGTH_LONG).show();

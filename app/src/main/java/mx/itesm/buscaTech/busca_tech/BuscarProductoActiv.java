@@ -208,11 +208,15 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             Log.i("LlaveBus", llave);
                             String url1 = "https://www.googleapis.com/customsearch/v1?q=" + busquedaImagen + "&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
 
+                            /*
                             if (llave == null || llave.equals("TextView")) {
-                                url1 += "AIzaSyD_Qv7xTIMoZjzDH9HSOweUskIZtMPQejk";
+                                url1 += "AIzaSyBqXHKz3Zym-QE3f6jNihBckgXP03KgjKE";
                             } else {
                                 url1 += llave;
                             }
+                            */
+
+                            url1 += "AIzaSyBqXHKz3Zym-QE3f6jNihBckgXP03KgjKE";
 
                             //List<String> resultUrls = new ArrayList<String>();
 
