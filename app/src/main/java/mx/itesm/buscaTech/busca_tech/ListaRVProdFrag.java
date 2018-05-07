@@ -95,6 +95,7 @@ public class ListaRVProdFrag extends Fragment {
                 if (agregar == 0){
                     // agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
                     yaExisteBusqueda("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
+
                 }
                 else if (agregar == 1){
                     yaExiste("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
@@ -106,7 +107,7 @@ public class ListaRVProdFrag extends Fragment {
 
             }
         }
-        , idPreferencias, strImagenes);
+        , idPreferencias, strImagenes, agregar);
         rvProductos.setAdapter(adaptador);
         rvProductos.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

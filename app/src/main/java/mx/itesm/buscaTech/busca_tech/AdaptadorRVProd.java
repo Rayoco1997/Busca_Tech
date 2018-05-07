@@ -27,14 +27,16 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
     private String[] arrIdPreferenciaProd;
     private String[] arrImagenLinkProd;
     Context thisContext;
+    int agregar;
 
-    public AdaptadorRVProd(String[] nombres, String[] precios, String[] tiendas, final ClickHandler clickHandler, String[] idPreferenciaProd, String[] imagenesLink){
+    public AdaptadorRVProd(String[] nombres, String[] precios, String[] tiendas, final ClickHandler clickHandler, String[] idPreferenciaProd, String[] imagenesLink, int agregar){
         arrNombreProd = nombres;
         arrPrecioProd = precios;
         arrTiendaProd = tiendas;
         this.clickHandler = clickHandler;
         arrIdPreferenciaProd = idPreferenciaProd;
         arrImagenLinkProd = imagenesLink;
+        this.agregar = agregar;
     }
 
     @Override
@@ -55,6 +57,7 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         TextView tvTiendaProd = tarjeta.findViewById(R.id.tvTiendaProd);
         TextView tvIdPreferenciasProd = tarjeta.findViewById(R.id.tvIdPreferenciaProd);
         TextView tvImagenLink = tarjeta.findViewById(R.id.tvImagenLink);
+        ImageButton imbtn = tarjeta.findViewById(R.id.imbtnGuardar);
         tvNombreProd.setText(arrNombreProd[position]);
         tvPrecioProd.setText(arrPrecioProd[position]);
         // Dirección de la imagen en la cardView
@@ -65,6 +68,12 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         } else {
             Picasso.with(thisContext).load(arrImagenLinkProd[position]).into(ivImgProd);
 
+        }
+        // 0 es buscarProducto
+        // 1 es pantallaPrincipal
+        // 2 es misPreferencias
+        if (agregar == 2){
+           imbtn.setImageResource(android.R.drawable.ic_delete);
         }
         tvTiendaProd.setText(arrTiendaProd[position]);
         holder.clickHandler = this.clickHandler;
