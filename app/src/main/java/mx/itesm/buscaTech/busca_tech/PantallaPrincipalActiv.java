@@ -376,6 +376,9 @@ public class PantallaPrincipalActiv extends AppCompatActivity
             Intent intMisPreferencias= new Intent(this, MisPreferenciasActiv.class);
             startActivity(intMisPreferencias);
 
+        }else if(id == R.id.nav_AcercaDe){
+            Intent intAcercaDe = new Intent(this, AcercaDeActiv.class);
+            startActivity(intAcercaDe);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

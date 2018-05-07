@@ -16,6 +16,10 @@
             android:id="@+id/nav_SugerirTienda"
             android:icon="@android:drawable/ic_input_add"
             android:title="@string/strSugiereTienda" />
+        <item
+            android:id="@+id/nav_AcercaDe"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="Acerca de " />
     </group>
 
     <item android:title="Configuración">
