@@ -179,7 +179,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                     String busquedaImagen;
 
                     for(Element elemento:resultados){
-                        if(j>=5){
+                        if(j>=10){
                             break;
                         }
                         System.out.println("AH NU MA; ELEMENTO CON CLAVE: "+elemento.attr("data-docid"));
