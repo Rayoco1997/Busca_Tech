@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -92,6 +94,13 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void obtenerLlave(){
         final String[] llave = new String[1];
         dbRef.child("llave").addValueEventListener(new ValueEventListener() {
@@ -122,99 +131,100 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
     public void buscarProducto(View v){
         //String url= tiBuscarProducto.getText().toString();
-        progressDialog.setMessage("Buscando...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        final String llave = tvBoolean.getText().toString();
-        Log.i("LlaveChida", llave);
-        quitarTeclado(this.findViewById(android.R.id.content));
+        if(isNetworkAvailable()) {
+            progressDialog.setMessage("Buscando...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            final String llave = tvBoolean.getText().toString();
+            Log.i("LlaveChida", llave);
+            quitarTeclado(this.findViewById(android.R.id.content));
 
-        Thread thread =new Thread(new Runnable() {
+            Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
 
-                try {
-                    //INICIO DEL METODO PARA LIMPIAR LISTA DE FRAGMENTS
+                    try {
+                        //INICIO DEL METODO PARA LIMPIAR LISTA DE FRAGMENTS
 
-                    String[] listaVacia= new String[0];
-                    ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVacia, listaVacia, 0, listaVacia);
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.layoutProductos,fragLista);
-                    transaction.commit();
-                    //progressDialog.dismiss();
-                    //FIN DEL METODO
+                        String[] listaVacia = new String[0];
+                        ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVacia, listaVacia, 0, listaVacia);
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.layoutProductos, fragLista);
+                        transaction.commit();
+                        //progressDialog.dismiss();
+                        //FIN DEL METODO
 
-                    //Llamar al algoritmo de búsqueda
-                    Intent intent = getIntent();
-                    String busquedaAvz=intent.getStringExtra("busqueda");
-                    String url;
+                        //Llamar al algoritmo de búsqueda
+                        Intent intent = getIntent();
+                        String busquedaAvz = intent.getStringExtra("busqueda");
+                        String url;
 
-                    //Captura de texto desde el text field para buscar
-                    if(busquedaAvz==null) {
-                        url = tiBuscarProducto.getText().toString();
-                        //tiBuscarProducto.setInputType(InputType.TYPE_NULL);
+                        //Captura de texto desde el text field para buscar
+                        if (busquedaAvz == null) {
+                            url = tiBuscarProducto.getText().toString();
+                            //tiBuscarProducto.setInputType(InputType.TYPE_NULL);
 
-                    }else{
-                        url = busquedaAvz;
-                    }
-
-
-                    String busqueda = URLEncoder.encode(url, "utf-8");
-                    //Log.i("AQUI TA BUSQUEDA", busqueda);
-                    Document doc= Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q="+busqueda).get();
-                    //Document doc= Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q="+busqueda).userAgent("Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36").referrer("http://www.google.com").get();
-                    Elements resultados = doc.select("div.sh-dlr__list-result");
-                    Element resultadoPrimero = resultados.first();
-
-                    ArrayList<String> nombreProductos= new ArrayList<String>();
-                    ArrayList<String> precio = new ArrayList<String>();
-                    ArrayList<String> tiendas = new ArrayList<String>();
-
-                    imagenesLink = new ArrayList<String>();
-
-
-                    count=0;
-                    int j = 0;
-
-                    String busquedaImagen;
-
-                    for(Element elemento:resultados){
-                        if(j>=10){
-                            break;
-                        }
-                        System.out.println("AH NU MA; ELEMENTO CON CLAVE: "+elemento.attr("data-docid"));
-
-                        Elements temp = elemento.select("div.JRlvE.XNeeld");
-                        Element element = temp.first();
-                        Element child = element.child(0);
-                        nombreProductos.add(child.attr("alt"));
-                        //nombreProductos[count]= child.attr("alt");
-                        //Log.i("Nombre",child.attr("alt"));
-
-
-                        // can only grab first 100 results
-                        String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
-                        busquedaImagen= URLEncoder.encode(child.attr("alt"), "utf-8");
-                        Log.i("LlaveBus", llave);
-                        String url1 = "https://www.googleapis.com/customsearch/v1?q="+busquedaImagen+"&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
-
-                        if (llave == null || llave.equals("TextView")){
-                            url1 += "AIzaSyB41JAB_1vGimLIZuxbKS_jJbhCObRiUgs";
                         } else {
-                            url1 += llave;
+                            url = busquedaAvz;
                         }
 
-                        //List<String> resultUrls = new ArrayList<String>();
 
-                        new DescargaTextoTarea().execute(url1);
+                        String busqueda = URLEncoder.encode(url, "utf-8");
+                        //Log.i("AQUI TA BUSQUEDA", busqueda);
+                        Document doc = Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q=" + busqueda).get();
+                        //Document doc= Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q="+busqueda).userAgent("Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36").referrer("http://www.google.com").get();
+                        Elements resultados = doc.select("div.sh-dlr__list-result");
+                        Element resultadoPrimero = resultados.first();
 
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        ArrayList<String> nombreProductos = new ArrayList<String>();
+                        ArrayList<String> precio = new ArrayList<String>();
+                        ArrayList<String> tiendas = new ArrayList<String>();
 
-                        //new DescargaTextoTarea().execute(url1);
+                        imagenesLink = new ArrayList<String>();
+
+
+                        count = 0;
+                        int j = 0;
+
+                        String busquedaImagen;
+
+                        for (Element elemento : resultados) {
+                            if (j >= 10) {
+                                break;
+                            }
+                            System.out.println("AH NU MA; ELEMENTO CON CLAVE: " + elemento.attr("data-docid"));
+
+                            Elements temp = elemento.select("div.JRlvE.XNeeld");
+                            Element element = temp.first();
+                            Element child = element.child(0);
+                            nombreProductos.add(child.attr("alt"));
+                            //nombreProductos[count]= child.attr("alt");
+                            //Log.i("Nombre",child.attr("alt"));
+
+
+                            // can only grab first 100 results
+                            String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
+                            busquedaImagen = URLEncoder.encode(child.attr("alt"), "utf-8");
+                            Log.i("LlaveBus", llave);
+                            String url1 = "https://www.googleapis.com/customsearch/v1?q=" + busquedaImagen + "&cx=013957929780137382896%3Aevgtatruacs&num=1&searchType=image&key=";
+
+                            if (llave == null || llave.equals("TextView")) {
+                                url1 += "AIzaSyD_Qv7xTIMoZjzDH9HSOweUskIZtMPQejk";
+                            } else {
+                                url1 += llave;
+                            }
+
+                            //List<String> resultUrls = new ArrayList<String>();
+
+                            new DescargaTextoTarea().execute(url1);
+
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            //new DescargaTextoTarea().execute(url1);
                         /*Thread.sleep(10000);
                         Log.i("URL",dirImagen);
                         URL urlImagen = new URL(dirImagen);
@@ -226,38 +236,38 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         imagenes.add(redimensionarImagenMaximo(myBitmap,400,400));*/
 
 
-                        //IMAGEN
-                        System.out.println("Nombre: "+child.attr("alt"));
+                            //IMAGEN
+                            System.out.println("Nombre: " + child.attr("alt"));
 
-                        Elements tempo = elemento.select("span.O8U6h");
-                        Element element1 = tempo.first();
+                            Elements tempo = elemento.select("span.O8U6h");
+                            Element element1 = tempo.first();
 
-                        precio.add(element1.text());
-                        //precio[count]= element1.text();
-                        //Log.i("Precio",element1.text());
-                        //System.out.println("Precio: "+element1.text());
-                        Elements lugar = elemento.select("div.mQ35Be");
-                        Element primerLugar = lugar.first();
-                        Element childLugar = primerLugar.child(0);
-                        String lug = childLugar.text();
-                        lug = lug.replace(element1.text()+" en ","");
-                        //Log.i("Lugar", lug);
-                        if (lug.contains("tiendas")){
-                            nombreProductos.remove(count);
-                            precio.remove(count);
-                        }else{
-                            tiendas.add(lug);
-                            //tiendas[count]= lug;
+                            precio.add(element1.text());
+                            //precio[count]= element1.text();
+                            //Log.i("Precio",element1.text());
+                            //System.out.println("Precio: "+element1.text());
+                            Elements lugar = elemento.select("div.mQ35Be");
+                            Element primerLugar = lugar.first();
+                            Element childLugar = primerLugar.child(0);
+                            String lug = childLugar.text();
+                            lug = lug.replace(element1.text() + " en ", "");
+                            //Log.i("Lugar", lug);
+                            if (lug.contains("tiendas")) {
+                                nombreProductos.remove(count);
+                                precio.remove(count);
+                            } else {
+                                tiendas.add(lug);
+                                //tiendas[count]= lug;
 
-                            //System.out.println("Lugar: "+lug);
+                                //System.out.println("Lugar: "+lug);
 
-                            //imagenes.add(bm1);
-                            //imagenes[count]=bm1;
-                            count++;
-                            j+=1;
+                                //imagenes.add(bm1);
+                                //imagenes[count]=bm1;
+                                count++;
+                                j += 1;
+                            }
+
                         }
-
-                    }
                     /*
                     if (count==0){
 
@@ -284,56 +294,74 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             }
                         });
                     }*/
-                    String[] nombreProductosArray;
-                    String[] precioArray;
+                        String[] nombreProductosArray;
+                        String[] precioArray;
 
-                    //Bitmap[] imagenesArray = new Bitmap[count];
+                        //Bitmap[] imagenesArray = new Bitmap[count];
 
-                    String[] tiendasArray;
-                    String[] idPreferenciasArray;
+                        String[] tiendasArray;
+                        String[] idPreferenciasArray;
 
-                    if(count!=0) {
-                        nombreProductosArray= new String[count];
-                        precioArray = new String[count];
-                        tiendasArray = new String[count];
-                        idPreferenciasArray = new String[count];
-                    }else{
-                        nombreProductosArray= new String[1];
-                        precioArray = new String[1];
-                        tiendasArray = new String[1];
-                        idPreferenciasArray = new String[1];
+                        if (count != 0) {
+                            nombreProductosArray = new String[count];
+                            precioArray = new String[count];
+                            tiendasArray = new String[count];
+                            idPreferenciasArray = new String[count];
+                        } else {
+                            nombreProductosArray = new String[1];
+                            precioArray = new String[1];
+                            tiendasArray = new String[1];
+                            idPreferenciasArray = new String[1];
+                        }
+                        for (int i = 0; i < idPreferenciasArray.length; i++) {
+                            idPreferenciasArray[i] = "TIENDA";
+                        }
+
+                        String[] strImagenesArray = new String[count];
+
+                        if (count == 0) {
+                            nombreProductos.add("NO SE ENCONTRARON RESULTADOS");
+                            precio.add(" ");
+                            tiendas.add(" ");
+                            imagenesLink.add("http://unbxd.com/blog/wp-content/uploads/2014/02/No-results-found.jpg");
+
+                        }
+
+                        fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray));
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.layoutProductos, fragLista);
+                        transaction.commit();
+
+                    } catch (IOException e) {
+                        Log.i("ERROR JSOUP", e.getLocalizedMessage());
                     }
-                    for (int i = 0; i < idPreferenciasArray.length; i++){
-                        idPreferenciasArray[i] = "TIENDA";
-                    }
 
-                    String[] strImagenesArray = new String[count];
+                    progressDialog.dismiss();
 
-                    if (count==0){
-                        nombreProductos.add("NO SE ENCONTRARON RESULTADOS");
-                        precio.add(" ");
-                        tiendas.add(" ");
-                        imagenesLink.add("http://unbxd.com/blog/wp-content/uploads/2014/02/No-results-found.jpg");
 
-                    }
-
-                    fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray));
-                    transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.layoutProductos,fragLista);
-                    transaction.commit();
-
-                } catch (IOException e) {
-                    Log.i("ERROR JSOUP", e.getLocalizedMessage());
                 }
-
-                progressDialog.dismiss();
-
-
-            }
-        });
+            });
 
 
-        thread.start();
+            thread.start();
+        }else{
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No hay conexión a internet");
+            builder1.setCancelable(false);
+
+            builder1.setPositiveButton(
+                    "Aceptar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+
+        }
 
         /*(thread.getState()!= Thread.State.TERMINATED){
             //Log.i("MESSAGE","IT IS NOT TERMINATED");
