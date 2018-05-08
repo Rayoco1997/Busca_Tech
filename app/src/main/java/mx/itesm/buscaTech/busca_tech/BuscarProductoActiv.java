@@ -172,7 +172,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             busquedaAvz="";
                         }
 
-
+                        url=url.trim();
                         String busqueda = URLEncoder.encode(url, "utf-8");
                         //Log.i("AQUI TA BUSQUEDA", busqueda);
                         Document doc = Jsoup.connect("https://www.google.com.mx/search?tbm=shop&q=" + busqueda).get();
@@ -241,6 +241,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             if (lug.contains("tiendas")) {
                                 nombreProductos.remove(count);
                                 precio.remove(count);
+                                imagenesLink.remove(count);
                             } else {
                                 tiendas.add(lug);
                                 count++;
