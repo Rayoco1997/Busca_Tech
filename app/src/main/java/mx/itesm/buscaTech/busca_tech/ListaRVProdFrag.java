@@ -96,11 +96,11 @@ public class ListaRVProdFrag extends Fragment {
             public void onMyButtonClicked(int position) {
                 if (agregar == 0){
                     // agregarFavorito(precio[position], nombreProductos[position], tiendas[position], "NO HAY IMAGEN CHAVO", "NO HAY DIRECCION CHAVO");
-                    yaExisteBusqueda("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
+                    yaExisteBusqueda(direcciones[position], strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
 
                 }
                 else if (agregar == 1){
-                    yaExiste("No hay direccion", strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
+                    yaExiste(direcciones[position], strImagenes[position], nombreProductos[position], precio[position], tiendas[position]);
                 }
                 else if (agregar == 2){
                     eliminarFavorito(idPreferencias[position]);

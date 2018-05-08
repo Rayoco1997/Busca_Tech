@@ -263,6 +263,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Click
                 //Info que tiene que pasar
+                finish();
             }
         });
         builder.show();

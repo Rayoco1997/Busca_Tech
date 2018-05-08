@@ -64,9 +64,12 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
             @Override
             public void onClick(View v) {
                 Log.i("dando click", arrDirecciones[position]+"");
-                //String url = arrDirecciones[position];
-                //Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
-                //startActivity(i);
+
+                String url = arrDirecciones[position];
+                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                thisContext.startActivity(intent);
             }
         });
         TextView tvIdPreferenciasProd = tarjeta.findViewById(R.id.tvIdPreferenciaProd);

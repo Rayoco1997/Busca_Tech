@@ -183,7 +183,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         ArrayList<String> nombreProductos = new ArrayList<String>();
                         ArrayList<String> precio = new ArrayList<String>();
                         ArrayList<String> tiendas = new ArrayList<String>();
-
+                        ArrayList<String> linksProductos = new ArrayList<String>();
                         imagenesLink = new ArrayList<String>();
 
 
@@ -217,7 +217,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             new DescargaTextoTarea().execute(url1);
 
                             try {
-                                Thread.sleep(1000);
+                                Thread.sleep(1500);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -233,6 +233,14 @@ public class BuscarProductoActiv extends AppCompatActivity {
                             //Log.i("Precio",element1.text());
                             //System.out.println("Precio: "+element1.text());
                             Elements lugar = elemento.select("div.mQ35Be");
+                            Elements links = elemento.select("div.eIuuYe");
+                            Element primerLink = links.first();
+                            Element childLink = primerLink.child(0);
+                            String linkGoogle = childLink.attr("href");
+                            linkGoogle = "http://www.google.com"+linkGoogle;
+                            Log.i("LINK:",""+linkGoogle);
+                            //AQUI SE AGREGA AL ARREGLO
+                            linksProductos.add(linkGoogle);
                             Element primerLugar = lugar.first();
                             Element childLugar = primerLugar.child(0);
                             String lug = childLugar.text();
@@ -242,6 +250,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                                 nombreProductos.remove(count);
                                 precio.remove(count);
                                 imagenesLink.remove(count);
+                                linksProductos.remove(count);
                             } else {
                                 tiendas.add(lug);
                                 count++;
@@ -282,7 +291,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                         }
 
-                        fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray), direccionesArray);
+                        fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray), linksProductos.toArray(direccionesArray));
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.layoutProductos, fragLista);
                         transaction.commit();

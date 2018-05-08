@@ -97,13 +97,17 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         }
         */
 
-        String[] nombreProductos = {"Acer 15.6","Asus Vivobook","Acer Aspire 7","Asus 15.6","MSI GL62M"};
-        String[] precio = {"$14,499.00","$22,900.00","$24,000.00","$18,800.00","$16,600.00"};
+        String[] nombreProductos = {"Acer 15.6","Laptop Asus ViVoBook S K510UQ-BR159T","Acer Aspire 7","Asus 15.6","MSI GL62M"};
+        String[] precio = {"MXN14,499.00","MXN21,999.00","MXN24,000.00","MXN18,100.00","MXN16,521.00"};
 
-        String[] tiendas = {"Amazon.com", "Mercado Libre", "Walmart.com", "Amazon.com" ,"Amazon.com"};
+        String[] tiendas = {"Amazon.com", "Walmart.com", "Walmart.com", "Amazon.com" ,"Amazon.com"};
         String[] idPreferencias = {"TIENDA", "TIENDA", "TIENDA", "TIENDA" ,"TIENDA"};
         String[] strImagenes = {"https://thumb.pccomponentes.com/w-220-220/articles/15/152017/as-a515-51-wp-win10-01.jpg", "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/vivobook_pro15.JPG", "https://static.acer.com/up/Resource/Acer/Laptops/Aspire_7/photogallery/20170518/Aspire7_gallery_03.png", "https://http2.mlstatic.com/asus-fx503vd-156-gamingi74gb128ssd1tb8gbram-regalos-D_NQ_NP_776352-MLM26720971715_012018-F.jpg", "https://images-na.ssl-images-amazon.com/images/I/410qyinKeoL._SL500_AC_SS350_.jpg"};
-        String[] direcciones = {"google.com","google.com","google.com","google.com","google.com"};
+        String[] direcciones = {"https://www.amazon.com.mx/Amazon-Choice-A12-9720P-NX-GPYAL-001-A515-41G-11HC/dp/B079MDPM33?th=1&psc=1&source=googleshopping&locale=es-MX&tag=googhydr0mx-20&ref=pd_sl_2x06s3kaqa_e"
+                ,"https://www.walmart.com.mx/Computadoras/Laptops/Todas-las-Laptops/Laptop-asus-vivobook-s-k510uq_00088934973547?gclid=CjwKCAjw8r_XBRBkEiwAjWGLlF_gn_vs8EkKDpeZANmkYhWhrJxUzgLddjilO3294MaQsEmnR1nX6hoC2WEQAvD_BwE",
+                "https://www.walmart.com.mx/Computadoras/PC-Gamer/Laptops-y-PC-Gamer/Laptop-aceraspire-intel-core_00019111437819?gclid=CjwKCAjw8r_XBRBkEiwAjWGLlLeyLle1bfbxQ33BO-Qrt9E5ITDKUlCCu1a6Qb9ETHPSvmlbCLmx9BoClqEQAvD_BwE",
+                "https://www.amazon.com.mx/FX503VD-EH73-2-8GHz-i7-7700HQ-1080Pixeles-Port%C3%A1til/dp/B076H2J8ZV/ref=sr_1_8?s=computers&ie=UTF8&qid=1525743437&sr=1-8&keywords=asus+15.6",
+                "https://www.amazon.com.mx/MSI-GL62M-7RD-1407-Performance-SteelSeries/dp/B072QT88DG/ref=sr_1_1?s=electronics&ie=UTF8&qid=1525743521&sr=1-1&keywords=MSI+GL62M"};
 
         //posicionLista=0;
         /*for(int i=0;i<5;i++){
