@@ -103,7 +103,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         String[] tiendas = {"Amazon.com", "Mercado Libre", "Walmart.com", "Amazon.com" ,"Amazon.com"};
         String[] idPreferencias = {"TIENDA", "TIENDA", "TIENDA", "TIENDA" ,"TIENDA"};
         String[] strImagenes = {"https://thumb.pccomponentes.com/w-220-220/articles/15/152017/as-a515-51-wp-win10-01.jpg", "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/vivobook_pro15.JPG", "https://static.acer.com/up/Resource/Acer/Laptops/Aspire_7/photogallery/20170518/Aspire7_gallery_03.png", "https://http2.mlstatic.com/asus-fx503vd-156-gamingi74gb128ssd1tb8gbram-regalos-D_NQ_NP_776352-MLM26720971715_012018-F.jpg", "https://images-na.ssl-images-amazon.com/images/I/410qyinKeoL._SL500_AC_SS350_.jpg"};
-
+        String[] direcciones = {"google.com","google.com","google.com","google.com","google.com"};
 
         //posicionLista=0;
         /*for(int i=0;i<5;i++){
@@ -142,7 +142,7 @@ public class PantallaPrincipalActiv extends AppCompatActivity
         Bitmap[]imagenes = {bm1,bm2,bm3,bm4,bm5};
         */
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, tiendas, idPreferencias, 1, strImagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombreProductos, precio, tiendas, idPreferencias, 1, strImagenes, direcciones);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutProductos,fragLista);
         transaction.commit();

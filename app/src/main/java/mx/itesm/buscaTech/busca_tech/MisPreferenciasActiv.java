@@ -185,7 +185,7 @@ public class MisPreferenciasActiv extends AppCompatActivity {
             Log.i("Elemento: ",""+imagenesBm[i]);
         }
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes, direcciones);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();

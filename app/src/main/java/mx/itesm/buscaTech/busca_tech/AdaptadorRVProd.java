@@ -1,7 +1,9 @@
 package mx.itesm.buscaTech.busca_tech;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,10 +29,11 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
     private String[] arrTiendaProd;
     private String[] arrIdPreferenciaProd;
     private String[] arrImagenLinkProd;
+    private String[] arrDirecciones;
     Context thisContext;
     int agregar;
 
-    public AdaptadorRVProd(String[] nombres, String[] precios, String[] tiendas, final ClickHandler clickHandler, String[] idPreferenciaProd, String[] imagenesLink, int agregar){
+    public AdaptadorRVProd(String[] nombres, String[] precios, String[] tiendas, final ClickHandler clickHandler, String[] idPreferenciaProd, String[] imagenesLink, int agregar, String[] direcciones){
         arrNombreProd = nombres;
         arrPrecioProd = precios;
         arrTiendaProd = tiendas;
@@ -37,6 +41,7 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         arrIdPreferenciaProd = idPreferenciaProd;
         arrImagenLinkProd = imagenesLink;
         this.agregar = agregar;
+        arrDirecciones = direcciones;
     }
 
     @Override
@@ -48,13 +53,22 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
     }
 
     @Override
-    public void onBindViewHolder(Vista holder, int position) {
+    public void onBindViewHolder(Vista holder, final int position) {
         CardView tarjeta = holder.tarjeta;
         //Poblar los datos de la tarjeta
         TextView tvNombreProd = tarjeta.findViewById(R.id.tvNombreProd);
         TextView tvPrecioProd = tarjeta.findViewById(R.id.tvPrecioProd);
         ImageView ivImgProd = tarjeta.findViewById(R.id.ivImgProd);
         TextView tvTiendaProd = tarjeta.findViewById(R.id.tvTiendaProd);
+        tvTiendaProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dando click", arrDirecciones[position]+"");
+                //String url = arrDirecciones[position];
+                //Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+                //startActivity(i);
+            }
+        });
         TextView tvIdPreferenciasProd = tarjeta.findViewById(R.id.tvIdPreferenciaProd);
         TextView tvImagenLink = tarjeta.findViewById(R.id.tvImagenLink);
         ImageButton imbtn = tarjeta.findViewById(R.id.imbtnGuardar);

@@ -56,13 +56,14 @@ public class ListaRVProdFrag extends Fragment {
     // 2 es misPreferencias
     int agregar;
     String[] strImagenes;
+    String[] direcciones;
 
     public ListaRVProdFrag() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public ListaRVProdFrag(String[] nombreProductos, String[] precio, String[] tiendas, String[] idPreferencias, int agregar, String[] strImagenes) {
+    public ListaRVProdFrag(String[] nombreProductos, String[] precio, String[] tiendas, String[] idPreferencias, int agregar, String[] strImagenes, String[] direcciones) {
         this.nombreProductos = nombreProductos;
         this.precio = precio;
         this.imagenes = imagenes;
@@ -70,6 +71,7 @@ public class ListaRVProdFrag extends Fragment {
         this.idPreferencias = idPreferencias;
         this.agregar = agregar;
         this.strImagenes = strImagenes;
+        this.direcciones= direcciones;
 
     }
 
@@ -107,7 +109,7 @@ public class ListaRVProdFrag extends Fragment {
 
             }
         }
-        , idPreferencias, strImagenes, agregar);
+        , idPreferencias, strImagenes, agregar, direcciones);
         rvProductos.setAdapter(adaptador);
         rvProductos.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -137,12 +139,6 @@ public class ListaRVProdFrag extends Fragment {
         matriz.add(direccion);
         matriz.add(idPreferencia);
     }
-
-
-
-
-
-
 
     public void agregarFavorito(String precio, String nombre, String tienda, String imagen, String direccion) {
 
@@ -294,10 +290,9 @@ public class ListaRVProdFrag extends Fragment {
             idPreferencias[i] = preferenciasArr.get(i);
         }
 
-
         Bitmap[] imagenesBm = new Bitmap[imagenesArr.size()];
 
-        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes);
+        ListaRVProdFrag fragLista = new ListaRVProdFrag(nombres, precios, tiendas, idPreferencias, 2, imagenes, direcciones);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.layoutFavoritos, fragLista);
         transaction.commit();

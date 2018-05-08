@@ -59,6 +59,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="23dp"
             android:text="TextView"
+
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imbtnGuardar"
             app:layout_constraintStart_toEndOf="@+id/ivImgProd"

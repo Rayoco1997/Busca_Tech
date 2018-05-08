@@ -149,7 +149,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         //INICIO DEL METODO PARA LIMPIAR LISTA DE FRAGMENTS
 
                         String[] listaVacia = new String[0];
-                        ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVacia, listaVacia, 0, listaVacia);
+                        ListaRVProdFrag fragLista = new ListaRVProdFrag(listaVacia, listaVacia, listaVacia, listaVacia, 0, listaVacia, listaVacia);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.layoutProductos, fragLista);
                         transaction.commit();
@@ -253,17 +253,20 @@ public class BuscarProductoActiv extends AppCompatActivity {
                         String[] precioArray;
                         String[] tiendasArray;
                         String[] idPreferenciasArray;
+                        String[] direccionesArray;
 
                         if (count != 0) {
                             nombreProductosArray = new String[count];
                             precioArray = new String[count];
                             tiendasArray = new String[count];
                             idPreferenciasArray = new String[count];
+                            direccionesArray = new String[count];
                         } else {
                             nombreProductosArray = new String[1];
                             precioArray = new String[1];
                             tiendasArray = new String[1];
                             idPreferenciasArray = new String[1];
+                            direccionesArray = new String[1];
                         }
                         for (int i = 0; i < idPreferenciasArray.length; i++) {
                             idPreferenciasArray[i] = "TIENDA";
@@ -279,7 +282,7 @@ public class BuscarProductoActiv extends AppCompatActivity {
 
                         }
 
-                        fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray));
+                        fragLista = new ListaRVProdFrag(nombreProductos.toArray(nombreProductosArray), precio.toArray(precioArray), tiendas.toArray(tiendasArray), idPreferenciasArray, 0, imagenesLink.toArray(strImagenesArray), direccionesArray);
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.layoutProductos, fragLista);
                         transaction.commit();
