@@ -3,10 +3,14 @@ package mx.itesm.buscaTech.busca_tech;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +61,35 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
         CardView tarjeta = holder.tarjeta;
         //Poblar los datos de la tarjeta
         TextView tvNombreProd = tarjeta.findViewById(R.id.tvNombreProd);
+        tvNombreProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dando click", arrDirecciones[position]+"");
+
+                String url = arrDirecciones[position];
+                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                thisContext.startActivity(intent);
+            }
+        });
+
         TextView tvPrecioProd = tarjeta.findViewById(R.id.tvPrecioProd);
+
         ImageView ivImgProd = tarjeta.findViewById(R.id.ivImgProd);
+        ivImgProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dando click", arrDirecciones[position]+"");
+
+                String url = arrDirecciones[position];
+                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                thisContext.startActivity(intent);
+            }
+        });
+
         TextView tvTiendaProd = tarjeta.findViewById(R.id.tvTiendaProd);
         tvTiendaProd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +103,9 @@ public class AdaptadorRVProd extends RecyclerView.Adapter<AdaptadorRVProd.Vista>
                 thisContext.startActivity(intent);
             }
         });
+        tvTiendaProd.setPaintFlags(tvTiendaProd.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tvTiendaProd.setText(tvTiendaProd.getText().toString());
+
         TextView tvIdPreferenciasProd = tarjeta.findViewById(R.id.tvIdPreferenciaProd);
         TextView tvImagenLink = tarjeta.findViewById(R.id.tvImagenLink);
         ImageButton imbtn = tarjeta.findViewById(R.id.imbtnGuardar);

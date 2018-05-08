@@ -57,6 +57,7 @@
     <string name="strBusquedaAvMayusculas">Búsqueda Avanzada</string>
     <string name="strRestaurarContrasena">Restaurar Contraseña</string>
     <string name="strSalir">Salir</string>
+    <string name="strtvTienda"><u>TextView</u></string>
 
 
     <string-array name="valoresCategoriaTienda">
